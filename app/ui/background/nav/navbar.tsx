@@ -4,6 +4,7 @@ import { FaCode, FaLink, FaLaptopCode, FaBars, FaTimes } from 'react-icons/fa';
 import { CgHome } from 'react-icons/cg';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +28,16 @@ export default function Navbar() {
           ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-[150%] opacity-0 lg:translate-y-0 lg:opacity-100'}
         `}
         >
-          <NavItem icon={<CgHome size="1.5rem" />} label="Home" />
-          <NavItem
-            icon={<IoInformationCircleOutline size="1.8rem" />}
-            label="About Me"
-          />
+          <a href="#herosec">
+            <NavItem icon={<CgHome size="1.5rem" />} label="Home" />
+          </a>
+
+          <a href="#about">
+            <NavItem
+              icon={<IoInformationCircleOutline size="1.8rem" />}
+              label="About Me"
+            />
+          </a>
           <NavItem icon={<FaCode size="1.5rem" />} label="Skills" />
           <NavItem icon={<FaLaptopCode size="1.5rem" />} label="Projects" />
           <NavItem icon={<FaLink size="1.2rem" />} label="Contacts" />

@@ -1,11 +1,12 @@
 import Background from '@app/ui/background/background';
 import Navbar from '@app/ui/background/nav/navbar';
 import ShiftingText from './ui/background/shifting/shiftingtext';
+import AboutMe from './ui/background/aboutMe/aboutme';
 
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
-      <section className="relative min-h-screen w-full">
+      <section id="herosec" className="relative min-h-screen w-full">
         <Background />
         <Navbar />
         <div className="relative z-20 container ml-5 px-6 pt-32 md:pt-48 pb-20 ">
@@ -25,8 +26,9 @@ export default function Page() {
             </p>
 
             <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12">
-              Crafting high-performance digital experiences through the lens of
-              architectural precision and chromatic brutalism.
+              Highly passionate in IT fields especially Web Development, This
+              portofolio website made to elevate my personal branding and track
+              my progress
             </p>
             <div className="flex flex-wrap gap-4 mt-12">
               <button className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 shadow-xl shadow-white/5 ">
@@ -43,11 +45,9 @@ export default function Page() {
           <div className="w-px h-50 bg-gradient-to-t from-indigo-500 to-transparent opacity-50" />
         </div>
       </section>
-      <section className="relative z-10 min-h-screen ml-0">
+      <section id="about" className="relative z-10 min-h-screen ml-0">
         <Background />
-        <div className=" flex justify-center">
-          <h1 className="text-6xl text-white">About me</h1>
-        </div>
+        <AboutMe />
       </section>
     </main>
   );
