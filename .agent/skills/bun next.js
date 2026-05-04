@@ -1,0 +1,1 @@
+/home/azmee/my-app/.agents/skills/bun next.js

@@ -5,6 +5,7 @@ import { CgHome } from 'react-icons/cg';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,8 +15,20 @@ export default function Navbar() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-transparent p-6 text-white">
       <div className="cursor-pointer flex items-center justify-between lg:justify-center">
-        <div className="text-lg font-bold lg:fixed lg:left-10 lg:text-2xl">
-          Muhammad Azmi
+        <div className="text-lg font-bold lg:fixed lg:left-10 lg:text-2xl hover:bg-white/80 rounded-2xl text-black transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/personallogonew.svg"
+              alt="logo"
+              width={50}
+              height={50}
+            />
+            <div>
+              <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap">
+                Muhammad Azmi
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="cursor-pointer text-2xl lg:hidden" onClick={toggleMenu}>
@@ -49,12 +62,14 @@ export default function Navbar() {
 
 function NavItem({ icon, label }: { icon: React.ReactElement; label: string }) {
   return (
-    <li className="group cursor-pointer transition duration-300 hover:-translate-y-1 px-2 py-1 hover:bg-white/30 rounded-2xl hover:text-white ">
-      <span className="flex items-center gap-2 border-transparent  text-2xl ">
-        <div className="transition-all transform duration-300 group-hover:-rotate-8 group-hover:scale-110 ">
+    <li className="group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 px-2 py-1 hover:bg-white/30 rounded-2xl hover:text-white hover:shadow-md hover:scale-105">
+      <span className="flex items-center gap-2 border-transparent text-2xl">
+        <div className="transition-all transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-125 ">
           {icon}
         </div>
-        <div>{label}</div>
+        <div className="transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:font-semibold">
+          {label}
+        </div>
       </span>
     </li>
   );

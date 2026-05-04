@@ -1,12 +1,13 @@
-import Background from '@app/ui/background/background';
-import Navbar from '@app/ui/background/nav/navbar';
-import ShiftingText from './ui/background/shifting/shiftingtext';
-import AboutMe from './ui/background/aboutMe/aboutme';
+import Background from '@app/components/Background';
+import Navbar from '@app/components/Navbar';
+import ShiftingText from '@app/components/ShiftingText';
+import AboutMe from '@app/components/AboutMe';
+import TextType from './components/TextType';
 
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
-      <section id="herosec" className="relative min-h-screen w-full">
+      <section id="herosec" className="relative min-h-screen w-full ">
         <Background />
         <Navbar />
         <div className="relative z-20 container ml-5 px-6 pt-32 md:pt-48 pb-20 ">
@@ -14,10 +15,17 @@ export default function Page() {
             <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-slate-400 uppercase mb-6 block animate-fade-in">
               Creative Developer
             </span>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[0.9] tracking-tighter mb-8">
-              Hi, I'm Muhammad Azmi
-            </h1>
-
+            <TextType
+              text={['Hi, Im Muhammad Azmi']}
+              className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[0.9] tracking-tighter mb-8"
+              typingSpeed={60}
+              pauseDuration={1000000000}
+              showCursor={true}
+              cursorCharacter="_"
+              deletingSpeed={50}
+              variableSpeed={{ min: 60, max: 120 }}
+              cursorBlinkDuration={0.5}
+            />
             <p className="text-2xl md:text-4xl font-medium text-slate-300 mb-8">
               I'm a{' '}
               <span className="font-bold ">
