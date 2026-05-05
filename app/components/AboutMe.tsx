@@ -163,11 +163,11 @@ export default function AboutMe() {
       {/* ── Container ── */}
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-0">
         {/* Mobile-only header */}
-        <div className="block text-center mb-10">
-          <span className="text-xs md:text-4xl font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
+        <div className="block text-center mb-10 md:hidden">
+          <span className="text-xs  font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
             About Me
           </span>
-          <h1 className="mt-2 md:text-2xl text-4xl font-black text-white tracking-tighter">
+          <h1 className="mt-2  text-4xl font-black text-white tracking-tighter">
             Who I Am
           </h1>
         </div>
@@ -248,7 +248,7 @@ export default function AboutMe() {
           {/* ═══════════════ RIGHT COLUMN — SCROLLABLE CONTENT ═══════════════ */}
           <div className="flex-1 md:py-20 space-y-16 lg:space-y-20">
             {/* ── INTRODUCTION ── */}
-            <div className="border-b py-9">
+            <div>
               <Reveal>
                 <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]">
                   Introduction
