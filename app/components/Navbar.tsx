@@ -14,14 +14,15 @@ export default function Navbar() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-transparent p-6 text-white">
-      <div className="cursor-pointer flex items-center justify-between lg:justify-center">
-        <div className="text-lg font-bold lg:fixed lg:left-10 lg:text-2xl hover:bg-white/80 rounded-2xl text-black transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
-          <div className="flex items-center gap-2">
+      <div className="cursor-pointer flex items-center justify-between lg:justify-center ">
+        <div className="text-lg font-light lg:fixed lg:left-10 lg:text-2xlrounded-2xl text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
+          <div className="flex items-center gap-2 ">
             <Image
               src="/personallogonew.svg"
               alt="logo"
               width={50}
               height={50}
+              loading="eager"
             />
             <div>
               <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap">
@@ -31,13 +32,17 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="cursor-pointer text-2xl lg:hidden" onClick={toggleMenu}>
+        <div
+          className="cursor-pointer text-2xl lg:hidden "
+          onClick={toggleMenu}
+        >
           {isOpen ? <FaTimes /> : <FaBars />}
         </div>
+
         <ul
           className={`
           flex flex-col gap-6 absolute top-20 left-0 w-full bg-black/90 p-10 transition-all duration-300 ease-in
-          lg:static lg:flex-row lg:gap-4 lg:w-auto lg:bg-transparent lg:p-0 lg:flex
+          lg:static lg:flex-row lg:gap-4 lg:w-auto lg:bg-black/80 lg:p-2 lg:rounded-2xl lg:flex
           ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-[150%] opacity-0 lg:translate-y-0 lg:opacity-100'}
         `}
         >
@@ -62,12 +67,12 @@ export default function Navbar() {
 
 function NavItem({ icon, label }: { icon: React.ReactElement; label: string }) {
   return (
-    <li className="group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 px-2 py-1 hover:bg-white/30 rounded-2xl hover:text-white hover:shadow-md hover:scale-105">
-      <span className="flex items-center gap-2 border-transparent text-2xl">
+    <li className="group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 px-2 py-1 hover:bg-white rounded-2xl hover:text-black hover:shadow-md hover:scale-105 font-light">
+      <span className="flex items-center gap-2 border-transparent text-2xl ">
         <div className="transition-all transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-125 ">
           {icon}
         </div>
-        <div className="transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:font-semibold">
+        <div className="transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:font-medium">
           {label}
         </div>
       </span>

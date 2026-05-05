@@ -40,10 +40,10 @@ export default function Page() {
             </p>
             <div className="flex flex-wrap gap-4 mt-12">
               <button className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 shadow-xl shadow-white/5 ">
-                Download Resume
+                See My Works
               </button>
               <button className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300">
-                Contact Me
+                Get In Touch
               </button>
             </div>
           </div>

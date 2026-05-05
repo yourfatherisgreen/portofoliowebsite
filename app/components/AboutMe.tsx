@@ -70,9 +70,9 @@ function TimelineItem({
     <Reveal delay={delay}>
       <div className="relative pl-8 pb-8 border-l border-white/10 last:pb-0 group">
         {/* Timeline dot */}
-        <div className="absolute left-0 top-1 -translate-x-1/2 w-3 h-3 rounded-full bg-[#6C63FF] ring-4 ring-[#6C63FF]/20 group-hover:ring-[#6C63FF]/40 transition-all duration-300" />
+        <div className="absolute left-0 top-1 -translate-x-1/2 w-3 h-3 rounded-full bg-[#00C9A7] ring-4 ring-[#6C63FF]/20 group-hover:ring-[#6C63FF]/40 transition-all duration-300" />
 
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6C63FF]/80">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#00C9A7]/80">
           {period}
         </span>
         <h3 className="mt-1 text-lg font-bold text-white tracking-tight">
@@ -103,7 +103,7 @@ function Badge({ children }: { children: React.ReactNode }) {
 /* ─── Tech badge ─── */
 function TechBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-[#6C63FF]/10 border border-[#6C63FF]/20 text-[#6C63FF] hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/30 transition-all duration-300 cursor-default">
+    <span className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-[#6C63FF]/10 border border-[#6C63FF]/20 text-[#00C9A7] hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/30 transition-all duration-300 cursor-default">
       {name}
     </span>
   );
@@ -163,11 +163,11 @@ export default function AboutMe() {
       {/* ── Container ── */}
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-0">
         {/* Mobile-only header */}
-        <div className="block md:hidden text-center mb-10">
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#6C63FF]/70">
+        <div className="block text-center mb-10">
+          <span className="text-xs md:text-4xl font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
             About Me
           </span>
-          <h1 className="mt-2 text-4xl font-black text-white tracking-tighter">
+          <h1 className="mt-2 md:text-2xl text-4xl font-black text-white tracking-tighter">
             Who I Am
           </h1>
         </div>
@@ -204,13 +204,13 @@ export default function AboutMe() {
                 <h1 className="text-xl lg:text-2xl font-black text-white tracking-tighter leading-tight">
                   Muhammad Azmi
                   <br />
-                  <span className="text-[#6C63FF]">Rahman Nasution</span>
+                  <span>Rahman Nasution</span>
                 </h1>
 
                 <div className="mt-2 flex items-center justify-center md:justify-start gap-2 text-white/50">
                   {/* Location pin icon */}
                   <svg
-                    className="w-3.5 h-3.5 text-[#6C63FF]/60"
+                    className="w-3.5 h-3.5 text-[#00C9A7]/60"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -248,9 +248,9 @@ export default function AboutMe() {
           {/* ═══════════════ RIGHT COLUMN — SCROLLABLE CONTENT ═══════════════ */}
           <div className="flex-1 md:py-20 space-y-16 lg:space-y-20">
             {/* ── INTRODUCTION ── */}
-            <div>
+            <div className="border-b py-9">
               <Reveal>
-                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#6C63FF]/70">
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]">
                   Introduction
                 </span>
               </Reveal>
@@ -259,7 +259,7 @@ export default function AboutMe() {
                   Building digital
                   <br />
                   experiences that{' '}
-                  <span className="text-[#6C63FF]">matter</span>
+                  <span className="text-[#00C9A7]">matter</span>
                 </h2>
               </Reveal>
               <Reveal delay={200}>
@@ -287,7 +287,7 @@ export default function AboutMe() {
             </div>
 
             {/* ── STATS ROW ── */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-rows-3 gap-4">
               <StatCard value="3.80" label="Current GPA" delay={0} />
               <StatCard
                 value="2nd"
@@ -303,7 +303,7 @@ export default function AboutMe() {
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-10 h-10 rounded-xl bg-[#6C63FF]/10 border border-[#6C63FF]/20 flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-[#6C63FF]"
+                      className="w-5 h-5 text-[#00C9A7]"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -313,7 +313,7 @@ export default function AboutMe() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#6C63FF]/70">
+                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
                       Education
                     </span>
                     <h2 className="text-xl font-bold text-white tracking-tight">
@@ -346,7 +346,7 @@ export default function AboutMe() {
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-10 h-10 rounded-xl bg-[#6C63FF]/10 border border-[#6C63FF]/20 flex items-center justify-center">
                     <svg
-                      className="w-5 h-5 text-[#6C63FF]"
+                      className="w-5 h-5 text-[#00C9A7]"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -356,7 +356,7 @@ export default function AboutMe() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#6C63FF]/70">
+                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
                       Career & Achievements
                     </span>
                     <h2 className="text-xl font-bold text-white tracking-tight">
