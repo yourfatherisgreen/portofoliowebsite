@@ -232,7 +232,6 @@ export default function AboutMe() {
               </div>
 
               {/* Divider */}
-              <div className="relative z-10 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
               {/* Quick status */}
               <div className="relative z-10 flex items-center gap-2 text-sm text-white/40">
@@ -242,6 +241,14 @@ export default function AboutMe() {
                 </span>
                 <span className="font-medium">Available for opportunities</span>
               </div>
+              <a
+                href="https://drive.google.com/file/d/1yobhkDUUjBUdFdPerqGI7o6dDr1-I_4W/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm md:text-xl bg-white/10 backdrop-blur-3xl rounded-2xl text-white font-semibold inline-flex items-center justify-center p-1 px-5 hover:bg-white/20 transition-all duration-300 ease-in-out border border-white/30"
+              >
+                View CV
+              </a>
             </div>
           </aside>
 
