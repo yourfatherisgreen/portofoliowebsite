@@ -6,11 +6,11 @@ import Image from 'next/image';
 import StaggeredMenu from '@app/components/MobileNav';
 
 const menuItems = [
-  { label: 'Home', ariaLabel: 'Go to home section', link: '#herosec' },
-  { label: 'About', ariaLabel: 'Go to about section', link: '#about' },
-  { label: 'Skills', ariaLabel: 'Go to skills section', link: '#skills' },
-  { label: 'Projects', ariaLabel: 'Go to projects section', link: '#projects' },
-  { label: 'Contacts', ariaLabel: 'Get in touch', link: '#contacts' },
+  { label: 'Home', ariaLabel: 'Go to home section', link: '#herosec', icon: <CgHome size="1.5rem" /> },
+  { label: 'About', ariaLabel: 'Go to about section', link: '#about', icon: <IoInformationCircleOutline size="1.8rem" /> },
+  { label: 'Skills', ariaLabel: 'Go to skills section', link: '#skills', icon: <FaCode size="1.5rem" /> },
+  { label: 'Projects', ariaLabel: 'Go to projects section', link: '#projects', icon: <FaLaptopCode size="1.5rem" /> },
+  { label: 'Contacts', ariaLabel: 'Get in touch', link: '#contacts', icon: <FaLink size="1.2rem" /> },
 ];
 
 const socialItems = [
@@ -72,13 +72,13 @@ export default function Navbar() {
           items={menuItems}
           socialItems={socialItems}
           displaySocials
-          displayItemNumbering={true}
+          displayItemNumbering={false}
           menuButtonColor="#ffffff"
-          openMenuButtonColor="#fff"
+          openMenuButtonColor="#ffffff"
           changeMenuColorOnOpen={true}
-          colors={['#B497CF', '#5227FF']}
+          colors={['#0f172a', '#1e293b']}
           logoUrl="/personallogonew.svg"
-          accentColor="#5227FF"
+          accentColor="#00C9A7"
           isFixed={false}
         />
       </div>
@@ -90,7 +90,7 @@ function NavItem({ icon, label }: { icon: React.ReactElement; label: string }) {
   return (
     <li className="group cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 px-2 py-1 hover:bg-white rounded-2xl hover:text-black hover:shadow-md hover:scale-105 font-light">
       <span className="flex items-center gap-2 border-transparent text-2xl ">
-        <div className="transition-all transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-125 ">
+        <div className="transition-all transform duration-500 ease-out group-hover:-rotate-12 group-hover:scale-125 group-hover:-translate-x-2">
           {icon}
         </div>
         <div className="transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:font-medium">

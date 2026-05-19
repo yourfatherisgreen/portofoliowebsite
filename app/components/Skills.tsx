@@ -41,6 +41,13 @@ import {
   SiGo,
 } from 'react-icons/si';
 import { RiJavaLine } from 'react-icons/ri';
+import { gsap } from 'gsap';
+import { Flip } from 'gsap/Flip';
+import { flushSync } from 'react-dom';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(Flip);
+}
 
 /* ───────────────────────── Types ───────────────────────── */
 
@@ -73,19 +80,19 @@ const ALL_SKILLS: Skill[] = [
     name: 'JavaScript',
     icon: <SiJavascript size={ICON_SIZE} />,
     brandColor: '#F7DF1E',
-    categories: ['Main', 'Frontend', 'Backend'],
+    categories: ['Main', 'Frontend'],
   },
   {
     name: 'TypeScript',
     icon: <SiTypescript size={ICON_SIZE} />,
     brandColor: '#3178C6',
-    categories: ['Main', 'Frontend', 'Backend'],
+    categories: ['Main', 'Frontend'],
   },
   {
     name: 'Python',
     icon: <SiPython size={ICON_SIZE} />,
     brandColor: '#3776AB',
-    categories: ['Main', 'Backend'],
+    categories: ['Main'],
   },
   {
     name: 'PHP',
@@ -97,7 +104,7 @@ const ALL_SKILLS: Skill[] = [
     name: 'Java',
     icon: <RiJavaLine size={ICON_SIZE} />,
     brandColor: '#ED8B00',
-    categories: ['Main', 'Backend'],
+    categories: ['Main'],
   },
   {
     name: 'C++',
@@ -139,12 +146,7 @@ const ALL_SKILLS: Skill[] = [
   },
 
   // ── Backend ──
-  {
-    name: 'Node.js',
-    icon: <SiNodedotjs size={ICON_SIZE} />,
-    brandColor: '#339933',
-    categories: ['Backend'],
-  },
+
   {
     name: 'Laravel',
     icon: <SiLaravel size={ICON_SIZE} />,
@@ -269,108 +271,76 @@ function useInView(threshold = 0.1) {
   return { ref, inView };
 }
 
-/* ───────────────────────── Skill Card ───────────────────────── */
+/* ───────────────────────── Skill Capsule ───────────────────────── */
 
-function SkillCard({ skill, index }: { skill: Skill; index: number }) {
-  const { ref, inView } = useInView(0.05);
-  const cardRef = useRef<HTMLDivElement>(null);
+function SkillCapsule({ skill }: { skill: Skill }) {
+  const capsuleRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
+    if (!capsuleRef.current) return;
+    const rect = capsuleRef.current.getBoundingClientRect();
     setMousePos({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
   };
 
-  // Each card gets a unique floating animation delay and duration
-  const floatDelay = (index * 0.7) % 5;
-  const floatDuration = 4 + (index % 3) * 1.5;
-
   return (
     <div
-      ref={ref}
-      className="transition-all"
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(40px)',
-        transitionDuration: '600ms',
-        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        transitionDelay: `${Math.min(index * 60, 600)}ms`,
-      }}
+      ref={capsuleRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative group cursor-default w-full rounded-full overflow-hidden flex items-center bg-white/[0.02] border border-white/[0.05] transition-all duration-300"
     >
+      {/* ── Brand-color tint ── */}
       <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className="skill-card-float relative group cursor-default rounded-2xl overflow-hidden"
+        className="absolute inset-0 transition-opacity duration-500"
         style={{
-          animationDelay: `${floatDelay}s`,
-          animationDuration: `${floatDuration}s`,
+          background: `radial-gradient(circle at 50% 50%, ${skill.brandColor}${isHovered ? '20' : '05'}, transparent 80%)`,
+        }}
+      />
+
+      {/* ── Spotlight glow following mouse ── */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{
+          background: `radial-gradient(150px circle at ${mousePos.x}px ${mousePos.y}px, ${skill.brandColor}15, transparent 50%)`,
+        }}
+      />
+
+      {/* ── Hover border glow ── */}
+      <div
+        className="absolute inset-0 rounded-full transition-all duration-500 pointer-events-none"
+        style={{
+          boxShadow: isHovered
+            ? `inset 0 0 0 1px ${skill.brandColor}30, 0 0 15px ${skill.brandColor}10`
+            : 'inset 0 0 0 1px rgba(255,255,255,0.02)',
+        }}
+      />
+
+      {/* ── Content ── */}
+      <div
+        className="relative z-10 flex flex-row items-center justify-start w-full px-4 py-2 sm:px-5 sm:py-2.5 transition-transform duration-500 ease-out"
+        style={{
+          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
         }}
       >
-        {/* ── Glass background ── */}
         <div
-          className="absolute inset-0 rounded-2xl transition-all duration-500"
+          className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3 sm:mr-4 transition-all duration-500 flex-shrink-0"
           style={{
-            background: `rgba(255,255,255,0.03)`,
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-          }}
-        />
-
-        {/* ── Brand-color tint ── */}
-        <div
-          className="absolute inset-0 rounded-2xl transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(circle at 50% 40%, ${skill.brandColor}${isHovered ? '18' : '0A'}, transparent 70%)`,
-          }}
-        />
-
-        {/* ── Spotlight glow following mouse ── */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{
-            background: `radial-gradient(300px circle at ${mousePos.x}px ${mousePos.y}px, ${skill.brandColor}15, transparent 50%)`,
-          }}
-        />
-
-        {/* ── Hover border glow ── */}
-        <div
-          className="absolute inset-0 rounded-2xl transition-all duration-500 pointer-events-none"
-          style={{
-            boxShadow: isHovered
-              ? `inset 0 0 0 1px ${skill.brandColor}30, 0 0 20px ${skill.brandColor}10`
-              : 'inset 0 0 0 1px rgba(255,255,255,0.06)',
-          }}
-        />
-
-        {/* ── Content ── */}
-        <div
-          className="relative z-10 flex flex-col items-center justify-center p-5 sm:p-6 transition-transform duration-500 ease-out"
-          style={{
-            transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+            color: skill.brandColor,
+            background: `${skill.brandColor}10`,
+            boxShadow: isHovered ? `0 0 20px ${skill.brandColor}20` : 'none',
           }}
         >
-          <div
-            className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl mb-3 transition-all duration-500"
-            style={{
-              color: skill.brandColor,
-              background: `${skill.brandColor}10`,
-              boxShadow: isHovered ? `0 0 25px ${skill.brandColor}20` : 'none',
-            }}
-          >
-            {skill.icon}
-          </div>
-          <span className="text-xs sm:text-sm font-semibold text-white/80 group-hover:text-white transition-colors duration-300 text-center leading-tight">
-            {skill.name}
-          </span>
+          {React.cloneElement(skill.icon as React.ReactElement, { size: 20 } as any)}
         </div>
+        <span className="text-[11px] sm:text-sm font-semibold text-white/70 group-hover:text-white transition-colors duration-300 truncate">
+          {skill.name}
+        </span>
       </div>
     </div>
   );
@@ -380,11 +350,37 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
 
 export default function Skills() {
   const [activeTab, setActiveTab] = useState<string>('All');
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const filteredSkills = useMemo(() => {
-    if (activeTab === 'All') return ALL_SKILLS;
-    return ALL_SKILLS.filter((s) => s.categories.includes(activeTab));
-  }, [activeTab]);
+  const handleTabChange = (tab: string) => {
+    if (tab === activeTab) return;
+
+    if (containerRef.current) {
+      const state = Flip.getState('.skill-capsule');
+
+      flushSync(() => {
+        setActiveTab(tab);
+      });
+
+      Flip.from(state, {
+        duration: 0.5,
+        ease: 'power3.out',
+        absolute: true,
+        scale: true,
+        stagger: 0.02,
+        onEnter: (elements) =>
+          gsap.fromTo(
+            elements,
+            { opacity: 0, scale: 0.5 },
+            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }
+          ),
+        onLeave: (elements) =>
+          gsap.to(elements, { opacity: 0, scale: 0.5, duration: 0.3 }),
+      });
+    } else {
+      setActiveTab(tab);
+    }
+  };
 
   const tabCounts = useMemo(() => {
     const counts: Record<string, number> = { All: ALL_SKILLS.length };
@@ -397,12 +393,6 @@ export default function Skills() {
     });
     return counts;
   }, []);
-
-  // Reset animation key when tab changes
-  const [animKey, setAnimKey] = useState(0);
-  useEffect(() => {
-    setAnimKey((k) => k + 1);
-  }, [activeTab]);
 
   return (
     <section className="relative z-10 w-full min-h-screen text-white font-sans overflow-hidden">
@@ -458,17 +448,17 @@ export default function Skills() {
 
         {/* ── Filter Pills ── */}
         <div className="flex justify-center mb-14">
-          <div className="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-black border border-white/[0.06] backdrop-blur-md">
+          <div className="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-black border border-white/[0.06] backdrop-blur-md z-20 relative">
             {FILTER_TABS.map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => handleTabChange(tab)}
                 className={`
                   px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide
                   transition-all duration-300 ease-out whitespace-nowrap
                   ${
                     activeTab === tab
-                      ? 'bg-[#F7DF1E] text-black shadow-[0_0_20px_rgba(247,223,30,0.3)]'
+                      ? 'bg-[#00C9A7] text-black shadow-[0_0_20px_rgba(0,201,167,0.3)]'
                       : 'text-white/50 hover:text-black hover:bg-white'
                   }
                 `}
@@ -486,12 +476,20 @@ export default function Skills() {
 
         {/* ── Skills Grid ── */}
         <div
-          key={animKey}
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-5"
+          ref={containerRef}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5"
         >
-          {filteredSkills.map((skill, i) => (
-            <SkillCard key={skill.name} skill={skill} index={i} />
-          ))}
+          {ALL_SKILLS.map((skill, i) => {
+            const isVisible = activeTab === 'All' || skill.categories.includes(activeTab);
+            return (
+              <div
+                key={skill.name}
+                className={`skill-capsule ${isVisible ? 'block' : 'hidden'}`}
+              >
+                <SkillCapsule skill={skill} />
+              </div>
+            );
+          })}
         </div>
       </div>
 
