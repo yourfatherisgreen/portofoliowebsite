@@ -282,15 +282,6 @@ export default function AboutMe() {
                   life.
                 </p>
               </Reveal>
-
-              {/* Tech stack badges */}
-              <Reveal delay={300}>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <TechBadge name="Next.js" />
-                  <TechBadge name="TypeScript" />
-                  <TechBadge name="PHP Laravel" />
-                </div>
-              </Reveal>
             </div>
 
             {/* ── STATS ROW ── */}

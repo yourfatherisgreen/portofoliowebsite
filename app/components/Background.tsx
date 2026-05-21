@@ -153,7 +153,7 @@ export default function Background() {
       {/* Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 w-full h-screen pointer-events-none"
       />
     </div>
   );

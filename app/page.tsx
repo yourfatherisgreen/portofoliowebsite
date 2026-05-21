@@ -4,6 +4,7 @@ import ShiftingText from '@app/components/ShiftingText';
 import AboutMe from '@app/components/AboutMe';
 import TextType from './components/TextType';
 import Skills from './components/Skills';
+import Projects from '@app/components/Projects';
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
@@ -54,11 +55,13 @@ export default function Page() {
         </div>
       </section>
       <section id="about" className="relative z-10 min-h-screen ml-0">
-        <Background />
         <AboutMe />
       </section>
       <section id="skills" className="relative z-10 min-h-screen ml-0">
         <Skills />
+      </section>
+      <section id="projects" className="relative z-10 min-h-screen ml-0">
+        <Projects />
       </section>
     </main>
   );

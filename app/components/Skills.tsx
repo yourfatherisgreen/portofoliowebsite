@@ -336,7 +336,10 @@ function SkillCapsule({ skill }: { skill: Skill }) {
             boxShadow: isHovered ? `0 0 20px ${skill.brandColor}20` : 'none',
           }}
         >
-          {React.cloneElement(skill.icon as React.ReactElement, { size: 20 } as any)}
+          {React.cloneElement(
+            skill.icon as React.ReactElement,
+            { size: 20 } as any,
+          )}
         </div>
         <span className="text-[11px] sm:text-sm font-semibold text-white/70 group-hover:text-white transition-colors duration-300 truncate">
           {skill.name}
@@ -372,7 +375,7 @@ export default function Skills() {
           gsap.fromTo(
             elements,
             { opacity: 0, scale: 0.5 },
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }
+            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' },
           ),
         onLeave: (elements) =>
           gsap.to(elements, { opacity: 0, scale: 0.5, duration: 0.3 }),
@@ -465,7 +468,7 @@ export default function Skills() {
               >
                 {tab}
                 <span
-                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black' : 'text-black'}`}
+                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black' : 'text-white/30'}`}
                 >
                   {tabCounts[tab]}
                 </span>
@@ -480,7 +483,8 @@ export default function Skills() {
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5"
         >
           {ALL_SKILLS.map((skill, i) => {
-            const isVisible = activeTab === 'All' || skill.categories.includes(activeTab);
+            const isVisible =
+              activeTab === 'All' || skill.categories.includes(activeTab);
             return (
               <div
                 key={skill.name}
