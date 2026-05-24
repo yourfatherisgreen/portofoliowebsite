@@ -76,14 +76,9 @@ export function ProjectCard({
       <div className="zone1-thumbnail">
         <img src={thumbnail} alt={name} className="thumbnail-image" />
         <div className="image-overlay" />
-        
+
         {/* Decorative Chrome Overlay with Dots & Live Demo Button */}
         <div className="card-chrome">
-          <div className="chrome-dots">
-            <span className="chrome-dot chrome-dot-red" />
-            <span className="chrome-dot chrome-dot-yellow" />
-            <span className="chrome-dot chrome-dot-green" />
-          </div>
           <div className="live-demo-button">
             <span>Live Demo</span>
             <FaExternalLinkAlt size={8} className="external-icon" />
@@ -92,11 +87,7 @@ export function ProjectCard({
       </div>
 
       {/* Zone 2 — Info Section (bottom ~45% of card height) */}
-      <div
-        ref={zone2Ref}
-        className="zone2-info"
-        onMouseMove={handleMouseMove}
-      >
+      <div ref={zone2Ref} className="zone2-info" onMouseMove={handleMouseMove}>
         <div
           className="spotlight-overlay"
           style={{
@@ -104,7 +95,7 @@ export function ProjectCard({
             background: `radial-gradient(circle 180px at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.07), transparent 70%)`,
           }}
         />
-        
+
         <div className="info-content">
           <h3 className="project-name">{name}</h3>
           <p className="project-description">{description}</p>
@@ -200,10 +191,6 @@ export function ProjectCard({
           border-radius: 50%;
         }
 
-        .chrome-dot-red { background: #ff5f56; }
-        .chrome-dot-yellow { background: #ffbd2e; }
-        .chrome-dot-green { background: #27c93f; }
-
         .live-demo-button {
           position: absolute;
           top: 12px;
@@ -225,8 +212,8 @@ export function ProjectCard({
         }
 
         .project-card:hover .live-demo-button {
-          background: #00C9A7;
-          border-color: #00C9A7;
+          background: #00c9a7;
+          border-color: #00c9a7;
           color: #000000;
           box-shadow: 0 0 12px rgba(0, 201, 167, 0.4);
         }
@@ -350,7 +337,7 @@ const PROJECT_LIST = [
     ],
     releaseDate: 'November 2025',
     thumbnail: '/mi-techno.png',
-    link: 'https://github.com',
+    link: 'https://github.com/yourfatherisgreen/backup-new-mi-techno',
     category: 'Website',
   },
   {
@@ -395,7 +382,7 @@ const PROJECT_LIST = [
       { icon: <SiTailwindcss />, label: 'TailwindCSS' },
     ],
     releaseDate: 'May 2026',
-    thumbnail: '/portfolio.png',
+    thumbnail: '/portofolio.png',
     link: 'https://muhammadazmi.my.id',
     category: 'Website',
   },
@@ -425,7 +412,7 @@ export default function Projects() {
           gsap.fromTo(
             elements,
             { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.2)' }
+            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.2)' },
           ),
         onLeave: (elements) =>
           gsap.to(elements, { opacity: 0, scale: 0.8, duration: 0.3 }),
@@ -484,7 +471,8 @@ export default function Projects() {
 
       <div ref={containerRef} className="projects-container">
         {PROJECT_LIST.map((project, index) => {
-          const isVisible = activeTab === 'All' || project.category === activeTab;
+          const isVisible =
+            activeTab === 'All' || project.category === activeTab;
           return (
             <div
               key={index}
@@ -520,7 +508,8 @@ export default function Projects() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family:
+            var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
         }
 
         .section-title-wrap {
@@ -530,7 +519,7 @@ export default function Projects() {
 
         .section-subtitle {
           font-size: 12px;
-          color: #00C9A7;
+          color: #00c9a7;
           text-transform: uppercase;
           letter-spacing: 0.3em;
           font-weight: 700;
