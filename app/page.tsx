@@ -39,7 +39,7 @@ export default function Page() {
               portofolio website made to elevate my personal branding and track
               my progress
             </p>
-            <div className="flex flex-wrap gap-4 mt-12">
+            <div className="flex gap-4 mt-12">
               <a href="#projects">
                 <button className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 shadow-xl shadow-white/5 ">
                   See My Works
