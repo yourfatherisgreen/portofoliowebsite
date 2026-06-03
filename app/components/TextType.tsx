@@ -184,9 +184,15 @@ const TextType = ({
     Component,
     {
       ref: containerRef,
-      className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
-      ...cleanProps, // Sekarang aman karena variabel aneh sudah dibuang
+      className: `relative inline-block whitespace-pre-wrap tracking-tight ${className}`,
+      ...cleanProps,
     },
+    /* Hidden placeholder to reserve space and prevent Layout Shift */
+    <span className="invisible h-0 block overflow-hidden" aria-hidden="true">
+      {textArray.reduce((longest, current) => 
+        current.length > longest.length ? current : longest, ""
+      )}
+    </span>,
     <span className="z-999 inline" style={{ color: getCurrentTextColor() }}>
       {displayedText}
     </span>,

@@ -6,11 +6,36 @@ import Image from 'next/image';
 import StaggeredMenu from '@app/components/MobileNav';
 
 const menuItems = [
-  { label: 'Home', ariaLabel: 'Go to home section', link: '#herosec', icon: <CgHome size="1.5rem" /> },
-  { label: 'About', ariaLabel: 'Go to about section', link: '#about', icon: <IoInformationCircleOutline size="1.8rem" /> },
-  { label: 'Skills', ariaLabel: 'Go to skills section', link: '#skills', icon: <FaCode size="1.5rem" /> },
-  { label: 'Projects', ariaLabel: 'Go to projects section', link: '#projects', icon: <FaLaptopCode size="1.5rem" /> },
-  { label: 'Contacts', ariaLabel: 'Get in touch', link: '#contacts', icon: <FaLink size="1.2rem" /> },
+  {
+    label: 'Home',
+    ariaLabel: 'Go to home section',
+    link: '#herosec',
+    icon: <CgHome size="1.5rem" />,
+  },
+  {
+    label: 'About',
+    ariaLabel: 'Go to about section',
+    link: '#about',
+    icon: <IoInformationCircleOutline size="1.8rem" />,
+  },
+  {
+    label: 'Skills',
+    ariaLabel: 'Go to skills section',
+    link: '#skills',
+    icon: <FaCode size="1.5rem" />,
+  },
+  {
+    label: 'Projects',
+    ariaLabel: 'Go to projects section',
+    link: '#projects',
+    icon: <FaLaptopCode size="1.5rem" />,
+  },
+  {
+    label: 'Contacts',
+    ariaLabel: 'Get in touch',
+    link: '#contacts',
+    icon: <FaLink size="1.2rem" />,
+  },
 ];
 
 const socialItems = [
@@ -32,7 +57,7 @@ export default function Navbar() {
                 alt="logo"
                 width={50}
                 height={50}
-                loading="eager"
+                loading="lazy"
               />
               <div>
                 <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap">

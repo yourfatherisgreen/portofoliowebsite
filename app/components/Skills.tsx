@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   SiCss,
   SiGithub,
@@ -22,23 +28,11 @@ import {
   SiFigma,
   SiCanva,
   SiCoreldraw,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
-  SiPrisma,
-  SiRedux,
-  SiSass,
-  SiBootstrap,
   SiGit,
   SiVercel,
   SiLinux,
-  SiPostman,
   SiNpm,
-  SiFlutter,
-  SiDart,
-  SiKotlin,
-  SiGo,
+  SiBootstrap,
 } from 'react-icons/si';
 import { RiJavaLine } from 'react-icons/ri';
 import { gsap } from 'gsap';
@@ -162,12 +156,6 @@ const ALL_SKILLS: Skill[] = [
     categories: ['Database'],
   },
   {
-    name: 'PostgreSQL',
-    icon: <SiPostgresql size={ICON_SIZE} />,
-    brandColor: '#4169E1',
-    categories: ['Database'],
-  },
-  {
     name: 'Firebase',
     icon: <SiFirebase size={ICON_SIZE} />,
     brandColor: '#FFCA28',
@@ -246,44 +234,37 @@ const FILTER_TABS = [
   'Tools',
 ] as const;
 
-/* ───────────────────────── Hooks ───────────────────────── */
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          obs.unobserve(el);
-        }
-      },
-      { threshold },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
 /* ───────────────────────── Skill Capsule ───────────────────────── */
 
 function SkillCapsule({ skill }: { skill: Skill }) {
   const capsuleRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  const updateRect = useCallback(() => {
+    if (capsuleRef.current) {
+      rectRef.current = capsuleRef.current.getBoundingClientRect();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isHovered) {
+      updateRect();
+      window.addEventListener('resize', updateRect);
+      window.addEventListener('scroll', updateRect, true);
+    }
+    return () => {
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [isHovered, updateRect]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!capsuleRef.current) return;
-    const rect = capsuleRef.current.getBoundingClientRect();
+    if (!rectRef.current) return;
     setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+      x: e.clientX - rectRef.current.left,
+      y: e.clientY - rectRef.current.top,
     });
   };
 
@@ -291,7 +272,10 @@ function SkillCapsule({ skill }: { skill: Skill }) {
     <div
       ref={capsuleRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        updateRect();
+        setIsHovered(true);
+      }}
       onMouseLeave={() => setIsHovered(false)}
       className="relative group cursor-default w-full rounded-full overflow-hidden flex items-center bg-white/[0.02] border border-white/[0.05] transition-all duration-300"
     >
@@ -444,9 +428,6 @@ export default function Skills() {
           <h2 className="mt-3 text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter leading-none">
             Skills
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-white/40 font-light">
-            My professional skills.
-          </p>
         </div>
 
         {/* ── Filter Pills ── */}
@@ -468,7 +449,7 @@ export default function Skills() {
               >
                 {tab}
                 <span
-                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black' : 'text-white/30'}`}
+                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black font-bold' : 'text-black'}`}
                 >
                   {tabCounts[tab]}
                 </span>

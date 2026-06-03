@@ -1,4 +1,5 @@
 'use client';
+'useCallback';
 import {
   SiHtml5,
   SiJavascript,
@@ -11,12 +12,21 @@ import {
   SiMysql,
   SiVercel,
   SiCss,
+  SiFigma,
+  SiFirebase,
 } from 'react-icons/si';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+} from 'react';
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 import { flushSync } from 'react-dom';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(Flip);
@@ -44,7 +54,7 @@ const BRAND_COLORS: Record<string, string> = {
   CSS: '#1572B6',
 };
 
-const FILTER_TABS = ['All', 'Website', 'UI/UX', 'Graphic Design'] as const;
+const FILTER_TABS = ['All', 'Website', 'UI/UX'] as const;
 
 export function ProjectCard({
   name,
@@ -56,25 +66,52 @@ export function ProjectCard({
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const zone2Ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+
+  const updateRect = useCallback(() => {
+    if (zone2Ref.current) {
+      rectRef.current = zone2Ref.current.getBoundingClientRect();
+    }
+  }, []);
+
+  useEffect(() => {
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+    return () => {
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [updateRect]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!zone2Ref.current) return;
-    const rect = zone2Ref.current.getBoundingClientRect();
+    if (!rectRef.current) return;
     setCoords({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+      x: e.clientX - rectRef.current.left,
+      y: e.clientY - rectRef.current.top,
     });
+  };
+
+  const onMouseEnter = () => {
+    updateRect();
+    setIsHovered(true);
   };
 
   return (
     <div
       className="project-card"
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={onMouseEnter}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Zone 1 — Thumbnail Section (top ~55% of card height) */}
       <div className="zone1-thumbnail">
-        <img src={thumbnail} alt={name} className="thumbnail-image" />
+        <Image
+          src={thumbnail}
+          alt={name}
+          className="thumbnail-image"
+          width={380}
+          height={157}
+        />
         <div className="image-overlay" />
 
         {/* Decorative Chrome Overlay with Dots & Live Demo Button */}
@@ -340,20 +377,7 @@ const PROJECT_LIST = [
     link: 'https://github.com/yourfatherisgreen/backup-new-mi-techno',
     category: 'Website',
   },
-  {
-    name: 'Nefflix Clone',
-    description:
-      'A simple website I made for my girlfriend to keep our memories in a diffrent way',
-    tools: [
-      { icon: <SiHtml5 />, label: 'HTML5' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-      { icon: <SiJavascript />, label: 'JavaScript' },
-    ],
-    releaseDate: 'February 2025',
-    thumbnail: '/netflix-clone.png',
-    link: 'https://epictosmomentos.vercel.app/',
-    category: 'Website',
-  },
+
   {
     name: 'INHALE STORE',
     description: 'Marketplace project i made to learn about react js ',
@@ -361,13 +385,27 @@ const PROJECT_LIST = [
       { icon: <SiVite />, label: 'Vite' },
       { icon: <SiReact />, label: 'React' },
       { icon: <SiNextdotjs />, label: 'Next.js' },
-      { icon: <SiJavascript />, label: 'JavaScript' },
       { icon: <SiTailwindcss />, label: 'TailwindCSS' },
       { icon: <SiVercel />, label: 'Vercel' },
     ],
     releaseDate: 'March 2026',
     thumbnail: '/inhale-store.png',
     link: 'https://inhalestore.vercel.app/',
+    category: 'Website',
+  },
+  {
+    name: 'Keep',
+    description:
+      'My first PWA I build that allows you to curate your saved videos accross all social media',
+    tools: [
+      { icon: <SiReact />, label: 'React' },
+      { icon: <SiNextdotjs />, label: 'Next.js' },
+      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
+      { icon: <SiFirebase />, label: 'Firebase' },
+    ],
+    releaseDate: 'May 2026',
+    thumbnail: '/keep.png',
+    link: 'https://keep-app-529304572716.asia-southeast1.run.app/playlist/pl-1780131575841-o1j57',
     category: 'Website',
   },
   {
@@ -384,6 +422,30 @@ const PROJECT_LIST = [
     releaseDate: 'May 2026',
     thumbnail: '/portofolio.png',
     link: 'https://muhammadazmi.my.id',
+    category: 'Website',
+  },
+  {
+    name: 'Archia Design Prototype',
+    description:
+      'Prototype design I made for my hackaton project. The concept is AI-Powered itenerary app',
+    tools: [{ icon: <SiFigma />, label: 'Figma' }],
+    releaseDate: 'April 2026',
+    thumbnail: '/archia.png',
+    link: 'https://www.figma.com/proto/xFkcAQtH7PEyanSxnpIx6p/Untitled?node-id=0-1&t=BYW32lpagmbU1Jyq-1',
+    category: 'UI/UX',
+  },
+  {
+    name: 'Nefflix Clone',
+    description:
+      'A simple website I made for my girlfriend to keep our memories in a diffrent way',
+    tools: [
+      { icon: <SiHtml5 />, label: 'HTML5' },
+      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
+      { icon: <SiJavascript />, label: 'JavaScript' },
+    ],
+    releaseDate: 'February 2025',
+    thumbnail: '/netflix-clone.png',
+    link: 'https://epictosmomentos.vercel.app/',
     category: 'Website',
   },
 ];
@@ -459,7 +521,7 @@ export default function Projects() {
               {tab}
               <span
                 className={`ml-1.5 text-[10px] sm:text-xs ${
-                  activeTab === tab ? 'text-black font-bold' : 'text-white/30'
+                  activeTab === tab ? 'text-black font-bold' : 'text-blackz'
                 }`}
               >
                 {tabCounts[tab]}
@@ -518,7 +580,7 @@ export default function Projects() {
         }
 
         .section-subtitle {
-          font-size: 12px;
+          font-size: 24px;
           color: #00c9a7;
           text-transform: uppercase;
           letter-spacing: 0.3em;

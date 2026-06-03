@@ -1,7 +1,7 @@
 // components/RoleCycler.jsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const roles = [
   { text: 'Web Developer', color: '#6C63FF' }, // purple
@@ -26,16 +26,28 @@ export default function ShiftingText() {
     return () => clearInterval(interval);
   }, []);
 
+  const longestText = useMemo(() => {
+    return roles.reduce((longest, current) => 
+      current.text.length > longest.length ? current.text : longest, ""
+    );
+  }, []);
+
   return (
-    <span
-      style={{
-        color: roles[index].color,
-        transition: 'opacity 0.8s ease, color 0.8s ease',
-        opacity: visible ? 1 : 0,
-        display: 'inline-block',
-      }}
-    >
-      {roles[index].text}
+    <span className="relative inline-block overflow-hidden align-bottom">
+      {/* Hidden placeholder to maintain stable width */}
+      <span className="invisible opacity-0" aria-hidden="true">
+        {longestText}
+      </span>
+      <span
+        className="absolute left-0 top-0 transition-all duration-800"
+        style={{
+          color: roles[index].color,
+          opacity: visible ? 1 : 0,
+          whiteSpace: 'nowrap'
+        }}
+      >
+        {roles[index].text}
+      </span>
     </span>
   );
 }
