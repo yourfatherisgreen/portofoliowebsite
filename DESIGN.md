@@ -54,6 +54,16 @@ This document outlines the styling guidelines, code structure, and architectural
 - **"use client":** Add the `'use client'` directive at the top of components that require state, interactivity, or browser APIs (like GSAP or window event listeners).
 - **Styling isolation:** Avoid writing custom CSS in `globals.css` if it can be achieved with Tailwind. If a component requires highly specific structural CSS (like the `StaggeredMenu`), use inline `<style>` tags or Tailwind's arbitrary values, but keep it isolated.
 
+### 6. Contact Section (`Contact.tsx`)
+- Two-column layout: left mobile-style profile card + right message form.
+- Profile card features: profile photo, name, role badge, location, email, and social media links (GitHub, LinkedIn, Instagram, TikTok).
+- Message form features: floating label inputs (name, email), textarea (message), gradient send button.
+- Uses `Intersection Observer`–based `Reveal` components for scroll-driven staggered animations.
+- Spotlight mouse-tracking glow effect on the form card.
+- Glassmorphism cards with gradient border pseudo-elements.
+- Social links have per-brand color tinting on hover.
+- Fully responsive: stacks vertically on mobile, side-by-side on `lg+`.
+
 ## Execution Checklist for AI Agents
 1. **Understand Context:** Review `page.tsx` to see where a component fits into the overall page layout.
 2. **Follow Aesthetics:** Ensure any new UI matches the premium, glassmorphism, and dark-themed aesthetics.

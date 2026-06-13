@@ -5,6 +5,7 @@ import AboutMe from '@app/components/AboutMe';
 import TextType from './components/TextType';
 import Skills from './components/Skills';
 import Projects from '@app/components/Projects';
+import Contact from '@app/components/Contact';
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
@@ -39,7 +40,7 @@ export default function Page() {
               portofolio website made to elevate my personal branding and track
               my progress
             </p>
-            <div className="flex gap-4 mt-12">
+            <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
                 <button className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 shadow-xl shadow-white/5 ">
                   See My Works
@@ -66,6 +67,9 @@ export default function Page() {
       </section>
       <section id="projects" className="relative z-10 min-h-screen ml-0">
         <Projects />
+      </section>
+      <section id="contact" className="relative z-10 min-h-screen ml-0">
+        <Contact />
       </section>
     </main>
   );

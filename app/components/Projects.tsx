@@ -37,6 +37,7 @@ export interface ProjectCardProps {
   description: string;
   tools: { icon: React.ReactNode; label: string }[];
   releaseDate: string;
+  link: string;
   thumbnail: string;
 }
 
@@ -62,6 +63,7 @@ export function ProjectCard({
   tools,
   releaseDate,
   thumbnail,
+  link,
 }: ProjectCardProps) {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -115,12 +117,18 @@ export function ProjectCard({
         <div className="image-overlay" />
 
         {/* Decorative Chrome Overlay with Dots & Live Demo Button */}
-        <div className="card-chrome">
+
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-card-link"
+        >
           <div className="live-demo-button">
             <span>Live Demo</span>
             <FaExternalLinkAlt size={8} className="external-icon" />
           </div>
-        </div>
+        </a>
       </div>
 
       {/* Zone 2 — Info Section (bottom ~45% of card height) */}
@@ -174,9 +182,14 @@ export function ProjectCard({
           flex-direction: column;
           background: #0d0d0d;
           transition: transform 300ms ease;
-          cursor: pointer;
+          cursor: default;
           position: relative;
           user-select: none;
+        }
+
+        .project-card-link {
+          cursor: pointer;
+          display: inline-flex;
         }
 
         .project-card:hover {
@@ -202,30 +215,6 @@ export function ProjectCard({
           inset: 0;
           background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
           pointer-events: none;
-        }
-
-        .card-chrome {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 5;
-          pointer-events: none;
-        }
-
-        .chrome-dots {
-          position: absolute;
-          top: 12px;
-          left: 12px;
-          display: flex;
-          gap: 5px;
-        }
-
-        .chrome-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
         }
 
         .live-demo-button {
@@ -540,20 +529,14 @@ export default function Projects() {
               key={index}
               className={`project-card-wrapper ${isVisible ? 'block' : 'hidden'}`}
             >
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-card-link"
-              >
-                <ProjectCard
-                  name={project.name}
-                  description={project.description}
-                  tools={project.tools}
-                  releaseDate={project.releaseDate}
-                  thumbnail={project.thumbnail}
-                />
-              </a>
+              <ProjectCard
+                name={project.name}
+                description={project.description}
+                tools={project.tools}
+                releaseDate={project.releaseDate}
+                thumbnail={project.thumbnail}
+                link={project.link}
+              />
             </div>
           );
         })}
