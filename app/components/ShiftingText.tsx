@@ -27,8 +27,10 @@ export default function ShiftingText() {
   }, []);
 
   const longestText = useMemo(() => {
-    return roles.reduce((longest, current) => 
-      current.text.length > longest.length ? current.text : longest, ""
+    return roles.reduce(
+      (longest, current) =>
+        current.text.length > longest.length ? current.text : longest,
+      '',
     );
   }, []);
 
@@ -43,7 +45,7 @@ export default function ShiftingText() {
         style={{
           color: roles[index].color,
           opacity: visible ? 1 : 0,
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
         }}
       >
         {roles[index].text}

@@ -449,7 +449,7 @@ export default function Skills() {
               >
                 {tab}
                 <span
-                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black font-bold' : 'text-black'}`}
+                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black font-bold' : 'text-white/50'}`}
                 >
                   {tabCounts[tab]}
                 </span>

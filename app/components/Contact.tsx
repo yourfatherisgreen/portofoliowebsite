@@ -2,11 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import {
-  SiGithub,
-  SiInstagram,
-  SiTiktok,
-} from 'react-icons/si';
+import { SiGithub, SiInstagram, SiTiktok } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
@@ -81,16 +77,16 @@ const SOCIALS = [
   {
     name: 'Instagram',
     icon: <SiInstagram size={20} />,
-    url: 'https://instagram.com/azmee.rn',
+    url: 'https://www.instagram.com/azmi_nst_?igsh=a3V2N3RyaWtqNTNy',
     color: '#E4405F',
-    username: '@azmee.rn',
+    username: '@azmi_nst_',
   },
   {
     name: 'TikTok',
     icon: <SiTiktok size={20} />,
-    url: 'https://tiktok.com/@azmee.rn',
-    color: '#00F2EA',
-    username: '@azmee.rn',
+    url: 'https://www.tiktok.com/@avgeek.idn?_r=1&_t=ZS-97CtS8imm6X',
+    color: '#cdd0d1',
+    username: '@avgeek.idn',
   },
 ];
 
@@ -205,8 +201,12 @@ function SocialLink({
           className="social-icon-wrap transition-all duration-300"
           style={{
             color: isHovered ? social.color : 'rgba(255,255,255,0.5)',
-            backgroundColor: isHovered ? `${social.color}15` : 'rgba(255,255,255,0.03)',
-            borderColor: isHovered ? `${social.color}30` : 'rgba(255,255,255,0.06)',
+            backgroundColor: isHovered
+              ? `${social.color}15`
+              : 'rgba(255,255,255,0.03)',
+            borderColor: isHovered
+              ? `${social.color}30`
+              : 'rgba(255,255,255,0.06)',
             boxShadow: isHovered ? `0 0 20px ${social.color}15` : 'none',
           }}
         >
@@ -313,7 +313,8 @@ export default function Contact() {
               Let&apos;s Connect
             </h2>
             <p className="mt-4 text-base text-white/40 max-w-lg mx-auto leading-relaxed">
-              Have a project in mind or just want to say hello? Feel free to reach out.
+              Have a project in mind or just want to say hello? Feel free to
+              reach out.
             </p>
           </div>
         </Reveal>
@@ -354,18 +355,23 @@ export default function Contact() {
                   Muhammad Azmi
                 </h3>
                 <div className="flex items-center justify-center gap-2 mt-2">
-                  <div className="w-2 h-2 rounded-full bg-[#6C63FF]" />
-                  <span className="text-sm font-semibold text-[#6C63FF] uppercase tracking-wider">
+                  <div className="w-2 h-2 rounded-full bg-[#53f5ed]" />
+                  <span className="text-sm font-semibold text-[#00d2c7] uppercase tracking-wider">
                     Software Engineer
                   </span>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-3 text-white/40">
-                  <HiOutlineLocationMarker size={16} className="text-[#00C9A7]/60" />
+                  <HiOutlineLocationMarker
+                    size={16}
+                    className="text-[#00d2c7]/60"
+                  />
                   <span className="text-sm font-medium">Medan, Indonesia</span>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-2 text-white/40">
-                  <MdOutlineEmail size={16} className="text-[#00C9A7]/60" />
-                  <span className="text-sm font-medium">azmirn05@gmail.com</span>
+                  <MdOutlineEmail size={16} className="text-[#00d2c7]/60" />
+                  <span className="text-sm font-medium">
+                    muhamadazmi1211@gmail.com
+                  </span>
                 </div>
               </div>
 
@@ -429,9 +435,16 @@ export default function Contact() {
                 </div>
 
                 {/* Form fields */}
-                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form
+                  className="space-y-6"
+                  onSubmit={(e) => e.preventDefault()}
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <FloatingInput id="contact-name" label="Your Name" delay={300} />
+                    <FloatingInput
+                      id="contact-name"
+                      label="Your Name"
+                      delay={300}
+                    />
                     <FloatingInput
                       id="contact-email"
                       label="Your Email"
@@ -440,14 +453,15 @@ export default function Contact() {
                     />
                   </div>
 
-                  <FloatingTextarea id="contact-message" label="Your Message" delay={500} />
+                  <FloatingTextarea
+                    id="contact-message"
+                    label="Your Message"
+                    delay={500}
+                  />
 
                   {/* Send button */}
                   <Reveal delay={600}>
-                    <button
-                      type="submit"
-                      className="contact-send-btn group"
-                    >
+                    <button type="submit" className="contact-send-btn group">
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         <span>Send Message</span>
                         <IoSend
@@ -458,13 +472,6 @@ export default function Contact() {
                     </button>
                   </Reveal>
                 </form>
-
-                {/* Footer note */}
-                <Reveal delay={700}>
-                  <p className="mt-6 text-[11px] text-white/25 text-center">
-                    I&apos;ll get back to you within 24 hours. No spam, I promise ✨
-                  </p>
-                </Reveal>
               </div>
             </div>
           </Reveal>
@@ -648,42 +655,40 @@ export default function Contact() {
           font-weight: 600;
         }
 
-        /* ── Send button ── */
+        /* ── Send button (semi-transparent black) ── */
         :global(.contact-send-btn) {
           position: relative;
           width: 100%;
           padding: 16px 32px;
           border-radius: 14px;
-          border: none;
+          border: 1px solid rgba(255, 255, 255, 0.04);
           font-size: 14px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #000000;
-          background: linear-gradient(135deg, #00C9A7, #6C63FF);
+          color: #ffffff;
+          background: rgba(0, 0, 0, 0.55);
           cursor: pointer;
           overflow: hidden;
-          transition: all 400ms ease;
+          transition: all 200ms ease;
         }
 
         :global(.contact-send-btn::before) {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, #6C63FF, #00C9A7);
+          background: rgba(255, 255, 255, 0.02);
           opacity: 0;
-          transition: opacity 400ms ease;
+          transition: opacity 200ms ease;
         }
 
         :global(.contact-send-btn:hover::before) {
-          opacity: 1;
+          opacity: 0.06;
         }
 
         :global(.contact-send-btn:hover) {
           transform: translateY(-2px);
-          box-shadow:
-            0 8px 32px rgba(108, 99, 255, 0.3),
-            0 4px 16px rgba(0, 201, 167, 0.2);
+          box-shadow: 0 10px 30px rgba(2, 6, 23, 0.28);
         }
 
         :global(.contact-send-btn:active) {

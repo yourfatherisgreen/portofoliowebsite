@@ -46,7 +46,7 @@ export default function Page() {
                   See My Works
                 </button>
               </a>
-              <a href="#about">
+              <a href="#contacts">
                 <button className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all duration-300">
                   Get In Touch
                 </button>

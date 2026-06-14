@@ -271,6 +271,10 @@ export default function AboutMe() {
               </Reveal>
               <Reveal delay={200}>
                 <p className="mt-6 text-base sm:text-lg text-white/60 leading-relaxed font-light max-w-2xl">
+                  HI, My name is{' '}
+                  <strong className="text-white/90 font-semibold">
+                    Muhammad Azmi Rahman Nasution
+                  </strong>{' '}
                   Management Informatics student currently focusing on{' '}
                   <span className="text-white/90 font-medium">
                     Web Development
