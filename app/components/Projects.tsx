@@ -113,6 +113,7 @@ export function ProjectCard({
           className="thumbnail-image"
           width={380}
           height={157}
+          loading = "lazy"
         />
         <div className="image-overlay" />
 

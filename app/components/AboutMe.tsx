@@ -195,6 +195,7 @@ export default function AboutMe() {
                     height={800}
                     className="object-cover w-full h-full"
                     priority
+                    loading = "eager"
                   />
                 </div>
               </div>
