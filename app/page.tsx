@@ -12,7 +12,7 @@ export default function Page() {
       <section id="herosec" className="relative min-h-screen w-full ">
         <Background />
         <Navbar />
-        <div className="relative z-20 container ml-5 px-6 pt-32 md:pt-48 pb-20 ">
+        <div className="relative z-20 container px-6 pt-32 md:pt-48 pb-20 mx-auto">
           <div className="relative max-w-4xl">
             <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-slate-400 uppercase mb-6 block animate-fade-in">
               Creative Developer
