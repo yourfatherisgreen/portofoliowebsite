@@ -321,8 +321,8 @@ function SkillCapsule({ skill }: { skill: Skill }) {
           }}
         >
           {React.cloneElement(
-            skill.icon as React.ReactElement,
-            { size: 20 } as any,
+            skill.icon as React.ReactElement<{ size?: number }>,
+            { size: 20 },
           )}
         </div>
         <span className="text-[11px] sm:text-sm font-semibold text-white/70 group-hover:text-white transition-colors duration-300 truncate">
@@ -337,7 +337,34 @@ function SkillCapsule({ skill }: { skill: Skill }) {
 
 export default function Skills() {
   const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeTabStyle, setActiveTabStyle] = useState({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+  });
   const containerRef = useRef<HTMLDivElement>(null);
+  const tabListRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  const updateActiveTabStyle = useCallback(() => {
+    const activeButton = tabRefs.current[activeTab];
+    const tabList = tabListRef.current;
+
+    if (!activeButton || !tabList) {
+      return;
+    }
+
+    const buttonRect = activeButton.getBoundingClientRect();
+    const listRect = tabList.getBoundingClientRect();
+
+    setActiveTabStyle({
+      left: buttonRect.left - listRect.left,
+      top: buttonRect.top - listRect.top,
+      width: buttonRect.width,
+      height: buttonRect.height,
+    });
+  }, [activeTab]);
 
   const handleTabChange = (tab: string) => {
     if (tab === activeTab) return;
@@ -368,6 +395,15 @@ export default function Skills() {
       setActiveTab(tab);
     }
   };
+
+  useEffect(() => {
+    updateActiveTabStyle();
+    window.addEventListener('resize', updateActiveTabStyle);
+
+    return () => {
+      window.removeEventListener('resize', updateActiveTabStyle);
+    };
+  }, [updateActiveTabStyle]);
 
   const tabCounts = useMemo(() => {
     const counts: Record<string, number> = { All: ALL_SKILLS.length };
@@ -432,24 +468,45 @@ export default function Skills() {
 
         {/* ── Filter Pills ── */}
         <div className="flex justify-center mb-14">
-          <div className="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-black border border-white/[0.06] backdrop-blur-md z-20 relative">
+          <div
+            ref={tabListRef}
+            className="relative z-20 inline-flex flex-wrap justify-center gap-2 rounded-2xl bg-black/80 p-2"
+          >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 top-0 rounded-xl bg-teal-500 shadow-md transition-all duration-500 ease-out"
+              style={{
+                transform: `translate(${activeTabStyle.left}px, ${activeTabStyle.top}px)`,
+                width: `${activeTabStyle.width}px`,
+                height: `${activeTabStyle.height}px`,
+              }}
+            />
             {FILTER_TABS.map((tab) => (
               <button
                 key={tab}
+                ref={(element) => {
+                  tabRefs.current[tab] = element;
+                }}
                 onClick={() => handleTabChange(tab)}
                 className={`
-                  px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide
-                  transition-all duration-300 ease-out whitespace-nowrap
+                  group relative z-10 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm tracking-wide
+                  transition-transform duration-200 ease-out whitespace-nowrap
                   ${
                     activeTab === tab
-                      ? 'bg-[#00C9A7] text-black shadow-[0_0_20px_rgba(0,201,167,0.3)]'
-                      : 'text-white/50 hover:text-black hover:bg-white'
+                      ? 'text-black font-medium'
+                      : 'text-white font-light hover:scale-105'
                   }
                 `}
               >
-                {tab}
+                <span className="inline-block origin-left transition-transform duration-200 ease-out group-hover:scale-110 group-hover:font-semibold">
+                  {tab}
+                </span>
                 <span
-                  className={`ml-1.5 text-[10px] sm:text-xs ${activeTab === tab ? 'text-black font-bold' : 'text-white/50'}`}
+                  className={`ml-1.5 inline-block text-[10px] sm:text-xs transition-transform duration-200 ease-out group-hover:scale-110 ${
+                    activeTab === tab
+                      ? 'text-black font-bold'
+                      : 'text-white/50 group-hover:text-white/80'
+                  }`}
                 >
                   {tabCounts[tab]}
                 </span>
@@ -463,7 +520,7 @@ export default function Skills() {
           ref={containerRef}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5"
         >
-          {ALL_SKILLS.map((skill, i) => {
+          {ALL_SKILLS.map((skill) => {
             const isVisible =
               activeTab === 'All' || skill.categories.includes(activeTab);
             return (
