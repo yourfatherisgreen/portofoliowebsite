@@ -13,31 +13,31 @@ const menuItems = [
     label: 'Home',
     ariaLabel: 'Go to home section',
     link: '#herosec',
-    icon: <CgHome size="1.5rem" />,
+    icon: <CgHome size="1.15rem" />,
   },
   {
     label: 'About',
     ariaLabel: 'Go to about section',
     link: '#about',
-    icon: <IoInformationCircleOutline size="1.8rem" />,
+    icon: <IoInformationCircleOutline size="1.3rem" />,
   },
   {
     label: 'Skills',
     ariaLabel: 'Go to skills section',
     link: '#skills',
-    icon: <FaCode size="1.5rem" />,
+    icon: <FaCode size="1.1rem" />,
   },
   {
     label: 'Projects',
     ariaLabel: 'Go to projects section',
     link: '#projects',
-    icon: <FaLaptopCode size="1.5rem" />,
+    icon: <FaLaptopCode size="1.15rem" />,
   },
   {
     label: 'Contacts',
     ariaLabel: 'Get in touch',
     link: '#contacts',
-    icon: <FaLink size="1.2rem" />,
+    icon: <FaLink size="1rem" />,
   },
 ];
 
@@ -168,15 +168,15 @@ export default function Navbar() {
   return (
     <>
       {/* ── Desktop nav (unchanged) ── visible lg+ ── */}
-      <nav className="fixed inset-x-0 top-0 z-50 bg-transparent p-6 text-white hidden lg:block">
+      <nav className="fixed inset-x-0 top-0 z-50 bg-transparent p-4 text-white hidden lg:block">
         <div className="cursor-pointer flex items-center justify-center">
-          <div className="text-lg font-light lg:fixed lg:left-10 lg:text-2xl rounded-2xl text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
+          <div className="text-sm font-light lg:fixed lg:left-8 lg:text-lg rounded-xl text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
             <div className="flex  items-center gap-2">
               <Image
                 src="/personallogonew.svg"
                 alt="logo"
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 loading="lazy"
               />
               <div>
@@ -189,11 +189,11 @@ export default function Navbar() {
 
           <ul
             ref={navListRef}
-            className="relative flex flex-row gap-4 bg-black/80 p-2 rounded-2xl"
+            className="relative flex flex-row gap-2 bg-black/65 p-1.5 rounded-xl backdrop-blur-md"
           >
             <span
               aria-hidden="true"
-              className={`pointer-events-none absolute left-0 top-2 bottom-2 rounded-2xl bg-teal-500 shadow-md ${
+              className={`pointer-events-none absolute left-0 top-1.5 bottom-1.5 rounded-lg bg-teal-500/90 shadow-sm ${
                 isManualNavigation
                   ? 'transition-none'
                   : 'transition-all duration-500 ease-out'
@@ -266,7 +266,7 @@ function NavItem({
         aria-label={ariaLabel}
         aria-current={isActive ? 'location' : undefined}
         onClick={onClick}
-        className={clsx('group flex cursor-pointer items-center gap-2 rounded-2xl px-2 py-1 text-2xl font-light transition-transform duration-200 ease-out  ', {
+        className={clsx('group flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1 text-base font-light transition-transform duration-200 ease-out  ', {
           'text-{#00C9A7}': isActive,
           'text-white': !isActive,
           'hover:scale-none': isActive,

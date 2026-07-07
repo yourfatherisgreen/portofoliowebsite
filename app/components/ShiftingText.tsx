@@ -4,10 +4,10 @@
 import { useState, useEffect, useMemo } from 'react';
 
 const roles = [
-  { text: 'Web Developer', color: '#6C63FF' }, // purple
-  { text: 'UI/UX Designer', color: '#00C9A7' }, // teal
-  { text: 'Graphic Designer', color: '#FF6B6B' }, // coral
-  { text: 'Student', color: '#FFC300' }, // gold
+  { text: 'Web Developer', color: '#00C9A7' },
+  { text: 'UI/UX Designer', color: '#00C9A7' },
+  { text: 'Graphic Designer', color: '#00C9A7' },
+  { text: 'Student', color: '#00C9A7' },
 ];
 
 export default function ShiftingText() {

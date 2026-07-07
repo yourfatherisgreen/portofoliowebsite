@@ -5,7 +5,6 @@ interface Particle {
   x: number;
   y: number;
   baseR: number;
-  hue: number;
   vx: number;
   vy: number;
   angle: number;
@@ -24,9 +23,9 @@ export default function Background() {
     if (!ctx) return; // Guard clause untuk context
 
     let animationFrameId: number;
-    let particles: Particle[] = []; // 2. Tambahkan tipe array Particle
+    const particles: Particle[] = []; // 2. Tambahkan tipe array Particle
 
-    const numParticles = 20;
+    const numParticles = 7;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -43,12 +42,11 @@ export default function Background() {
       particles.push({
         x: Math.random() * initWidth,
         y: Math.random() * initHeight,
-        baseR: Math.random() * 250 + 150,
-        hue: Math.random() * 360,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
+        baseR: Math.random() * 220 + 170,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.12,
         angle: Math.random() * Math.PI * 2,
-        wobbleSpeed: Math.random() * 0.02 + 0.01,
+        wobbleSpeed: Math.random() * 0.01 + 0.004,
       });
     }
 
@@ -75,9 +73,8 @@ export default function Background() {
 
       particles.forEach((p) => {
         p.angle += p.wobbleSpeed;
-        p.x += p.vx + Math.cos(p.angle) * 0.8;
-        p.y += p.vy + Math.sin(p.angle) * 0.8;
-        p.hue += 0.2;
+        p.x += p.vx + Math.cos(p.angle) * 0.25;
+        p.y += p.vy + Math.sin(p.angle) * 0.25;
 
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
@@ -92,7 +89,7 @@ export default function Background() {
           p.y += (dy / distance) * pushStrength;
         }
 
-        const dynamicR = p.baseR + Math.sin(p.angle) * 30;
+        const dynamicR = p.baseR + Math.sin(p.angle) * 16;
         const bounceMargin = 150;
 
         if (p.x < -bounceMargin) {
@@ -119,8 +116,9 @@ export default function Background() {
           p.y,
           dynamicR,
         );
-        gradient.addColorStop(0, `hsla(${p.hue}, 80%, 60%, 0.12)`);
-        gradient.addColorStop(1, `hsla(${p.hue}, 80%, 60%, 0)`);
+        gradient.addColorStop(0, 'rgba(0, 201, 167, 0.065)');
+        gradient.addColorStop(0.5, 'rgba(0, 201, 167, 0.026)');
+        gradient.addColorStop(1, 'rgba(0, 201, 167, 0)');
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
