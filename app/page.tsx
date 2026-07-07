@@ -14,12 +14,12 @@ export default function Page() {
         <Navbar />
         <div className="relative z-20 container px-6 pt-32 md:pt-48 pb-20 mx-auto">
           <div className="relative max-w-4xl">
-            <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-slate-400 uppercase mb-6 block animate-fade-in">
+            <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-slate-300 uppercase mb-6 block animate-fade-in">
               Creative Developer
             </span>
             <TextType
               text={['Hi, Im Muhammad Azmi']}
-              className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white leading-[0.9] tracking-tighter mb-8"
+              className="text-4xl md:text-6xl lg:text-9xl font-extrabold text-white leading-[0.9] tracking-tighter mb-8"
               typingSpeed={60}
               pauseDuration={1000000}
               showCursor={true}
@@ -27,6 +27,7 @@ export default function Page() {
               deletingSpeed={50}
               variableSpeed={{ min: 60, max: 120 }}
               cursorBlinkDuration={0.5}
+              
             />
             <p className="text-2xl md:text-4xl font-medium text-slate-300 mb-8">
               I'm a{' '}
@@ -35,15 +36,13 @@ export default function Page() {
               </span>
             </p>
 
-            <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12">
-              Highly passionate in IT fields especially Web Development, This
-              portofolio website made to elevate my personal branding and track
-              my progress
+            <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed mb-12">
+            Information Technology student focused on building practical web applications with React and other frameworks. I create responsive interfaces, PWAs, and digital products that solve real problems.
             </p>
             <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
                 <button className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-slate-200 transition-all duration-300 shadow-xl shadow-white/5 ">
-                  See My Works
+                 View Projects
                 </button>
               </a>
               <a href="#contacts">

@@ -290,15 +290,7 @@ export default function AboutMe() {
             </div>
 
             {/* ── STATS ROW ── */}
-            <div className="grid grid-cols-2 sm:grid-rows-3 gap-4">
-              <StatCard value="3.80" label="Current GPA" delay={0} />
-              <StatCard
-                value="2nd"
-                label="Web Design Competition"
-                delay={100}
-              />
-              <StatCard value="1+" label="Years Coding" delay={200} />
-            </div>
+            
 
             {/* ── EDUCATION ── */}
             <div>
@@ -316,11 +308,9 @@ export default function AboutMe() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
-                      Education
-                    </span>
+                    
                     <h2 className="text-xl font-bold text-white tracking-tight">
-                      Academic Journey
+                      Education
                     </h2>
                   </div>
                 </div>
@@ -359,11 +349,9 @@ export default function AboutMe() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
-                      Career & Achievements
-                    </span>
+                    
                     <h2 className="text-xl font-bold text-white tracking-tight">
-                      Experience
+                      Carreer & Achievements
                     </h2>
                   </div>
                 </div>
