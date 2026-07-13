@@ -43,12 +43,13 @@ export default function Page() {
             </p>
             <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
-                <button className="px-8 py-4 bg-[#00C9A7] text-black font-bold text-sm uppercase tracking-widest hover:bg-[#24e4c2] transition-all duration-300 shadow-xl shadow-[#00C9A7]/10 ">
+                <button className="px-8 py-4 bg-[#00C9A7] text-black font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 shadow-xl shadow-[#00C9A7]/10 rounded-2xl ">
                  View Projects
                 </button>
               </a>
               <a href="#contacts">
-                <button className="px-8 py-4 bg-transparent border border-[#00C9A7]/30 text-white font-bold text-sm uppercase tracking-widest hover:bg-[#00C9A7]/10 transition-all duration-300">
+                <button className="px-8 py-4 bg-white/10 backdrop-blur-xl
+                 border border-[#00C9A7]/30 text-white font-bold text-sm  tracking-widest hover:bg-[#00C9A7]/10 transition-all duration-300 rounded-2xl ">
                   Get In Touch
                 </button>
               </a>

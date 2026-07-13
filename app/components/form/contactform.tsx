@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useActionState, useEffect } from 'react';
+import { useRef, useActionState, useEffect } from 'react';
 import { IoSend } from 'react-icons/io5';
 import { MdOutlineEmail } from 'react-icons/md';
 import { LuLoader } from 'react-icons/lu';
@@ -24,9 +24,6 @@ function FloatingInput({
   delay?: number;
   disabled?: boolean;
 }) {
-  const [focused, setFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
-
   return (
     <Reveal delay={delay} className="relative">
       <div className="relative group">
@@ -35,26 +32,14 @@ function FloatingInput({
           name={name}
           type={type}
           className="contact-input peer"
-          onFocus={() => setFocused(true)}
-          onBlur={(e) => {
-            setFocused(false);
-            setHasValue(e.target.value.length > 0);
-          }}
           placeholder=" "
           autoComplete="off"
           disabled={disabled}
           required
         />
-        <label
-          htmlFor={id}
-          className={`contact-label ${focused || hasValue ? 'contact-label-active' : ''}`}
-        >
+        <label htmlFor={id} className="contact-label">
           {label}
         </label>
-        <div
-          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#6C63FF] to-[#00C9A7] transition-all duration-500 ease-out"
-          style={{ width: focused ? '100%' : '0%' }}
-        />
       </div>
     </Reveal>
   );
@@ -74,9 +59,6 @@ function FloatingTextarea({
   delay?: number;
   disabled?: boolean;
 }) {
-  const [focused, setFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
-
   return (
     <Reveal delay={delay} className="relative">
       <div className="relative group">
@@ -85,25 +67,13 @@ function FloatingTextarea({
           name={name}
           rows={5}
           className="contact-textarea peer"
-          onFocus={() => setFocused(true)}
-          onBlur={(e) => {
-            setFocused(false);
-            setHasValue(e.target.value.length > 0);
-          }}
           placeholder=" "
           disabled={disabled}
           required
         />
-        <label
-          htmlFor={id}
-          className={`contact-label ${focused || hasValue ? 'contact-label-active' : ''}`}
-        >
+        <label htmlFor={id} className="contact-label">
           {label}
         </label>
-        <div
-          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#6C63FF] to-[#00C9A7] transition-all duration-500 ease-out rounded-b-xl"
-          style={{ width: focused ? '100%' : '0%' }}
-        />
       </div>
     </Reveal>
   );

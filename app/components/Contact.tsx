@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { SiGithub, SiInstagram, SiTiktok } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { FaArrowRightLong } from 'react-icons/fa6';
 import { MdOutlineEmail } from 'react-icons/md';
 import ContactForm from './form/contactform';
 
@@ -135,15 +136,7 @@ function SocialLink({
             {social.username}
           </span>
         </div>
-        <svg
-          className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-all duration-300 group-hover:translate-x-0.5 ml-auto flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
+        <FaArrowRightLong className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-all duration-300 group-hover:translate-x-0.5 ml-auto flex-shrink-0" />
       </a>
     </Reveal>
   );
@@ -462,9 +455,9 @@ export default function Contact() {
         }
 
         :global(.contact-input:focus) {
-          border-color: rgba(108, 99, 255, 0.4);
+          border-color: #00c9a7;
           background: rgba(255, 255, 255, 0.05);
-          box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.08);
+          box-shadow: none;
         }
 
         :global(.contact-textarea) {
@@ -482,9 +475,9 @@ export default function Contact() {
         }
 
         :global(.contact-textarea:focus) {
-          border-color: rgba(108, 99, 255, 0.4);
+          border-color: #00c9a7;
           background: rgba(255, 255, 255, 0.05);
-          box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.08);
+          box-shadow: none;
         }
 
         /* ── Floating label ── */
@@ -512,9 +505,7 @@ export default function Contact() {
           top: 6px;
           transform: none;
           font-size: 10px;
-          color: rgba(0, 201, 167, 0.7);
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
+          color: #00c9a7;
           font-weight: 600;
         }
 
