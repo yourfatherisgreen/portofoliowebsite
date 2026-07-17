@@ -166,7 +166,7 @@ export default function AboutMe() {
         {/* Mobile-only header */}
         <div className="block text-center mb-10 md:hidden">
           <span className="text-xs  font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
-            About Me
+            Introduction
           </span>
           <h1 className="mt-2  text-4xl font-black text-white tracking-tighter">
             Who I Am
@@ -254,7 +254,7 @@ export default function AboutMe() {
                 </h2>
               </Reveal>
               <Reveal delay={200}>
-                <p className="mt-6 text-base sm:text-lg text-white/60 leading-relaxed font-light max-w-2xl">
+                <p className="mt-6 text-base sm:text-lg text-white/90 leading-relaxed font-light max-w-2xl">
                   HI, My name is{' '}
                   <strong className="text-white/90 font-semibold">
                     Muhammad Azmi Rahman Nasution
@@ -268,6 +268,9 @@ export default function AboutMe() {
                   <span className="text-white/90 font-medium">UI/UX</span>{' '}
                   experience. I work with modern tech stacks to bring ideas to
                   life.
+                </p>
+                <p className="mt-6 text-base sm:text-lg text-white/90 leading-relaxed font-light max-w-2xl">
+                  I am open to collaboration opportunities, freelance projects, and internships. I am particularly interested in contributing to meaningful products that solve real-world problems and create value for users. If you have a project, idea, or opportunity in mind, feel free to connect—I would be happy to discuss how we can work together and create impactful solutions.
                 </p>
               </Reveal>
             </div>
@@ -299,12 +302,20 @@ export default function AboutMe() {
                   delay={100}
                 />
                 <TimelineItem
-                  period="Since 2025"
+                  period="2025 - 2026"
                   title="Politeknik Negeri Medan"
-                  subtitle="Management Informatics"
-                  description="Currently pursuing a diploma in Management Informatics with a focus on web development and software engineering."
+                  subtitle="Informatics Management Diploma"
+                  description="Completing a year of a diploma in Informatics Management with a focus on web development and software engineering."
                   delay={200}
                 />
+                <TimelineItem
+                  period="2026 – now"
+                  title="Universitas Sumatera Utara"
+                  subtitle = "Information Technology Bachelor's Degree"
+                  description= "Starting over for a bigger opportunity to pursue a Bachelor's degree in Information Technology, focusing on advanced web development and software engineering."
+                  delay={300}
+                />
+                
               </div>
             </div>
 

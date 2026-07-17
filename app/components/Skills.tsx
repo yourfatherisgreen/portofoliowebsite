@@ -21,13 +21,10 @@ import {
   SiPhp,
   SiFirebase,
   SiMysql,
-  SiSupabase,
   SiDocker,
   SiPython,
   SiCplusplus,
   SiFigma,
-  SiCanva,
-  SiCoreldraw,
   SiGit,
   SiVercel,
   SiLinux,
@@ -161,12 +158,7 @@ const ALL_SKILLS: Skill[] = [
     brandColor: '#FFCA28',
     categories: ['Database'],
   },
-  {
-    name: 'Supabase',
-    icon: <SiSupabase size={ICON_SIZE} />,
-    brandColor: '#3ECF8E',
-    categories: ['Database'],
-  },
+
 
   // ── Tools ──
   {
@@ -211,18 +203,9 @@ const ALL_SKILLS: Skill[] = [
     brandColor: '#F24E1E',
     categories: ['Tools'],
   },
-  {
-    name: 'Canva',
-    icon: <SiCanva size={ICON_SIZE} />,
-    brandColor: '#00C4CC',
-    categories: ['Tools'],
-  },
-  {
-    name: 'CorelDRAW',
-    icon: <SiCoreldraw size={ICON_SIZE} />,
-    brandColor: '#72BF44',
-    categories: ['Tools'],
-  },
+  
+
+ 
 ];
 
 const FILTER_TABS = [
@@ -462,7 +445,7 @@ export default function Skills() {
             What I Work With
           </span>
           <h2 className="mt-3 text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter leading-none">
-            Skills
+            Tech Stack
           </h2>
         </div>
 

@@ -1,616 +1,210 @@
 'use client';
-'useCallback';
-import {
-  SiHtml5,
-  SiJavascript,
-  SiNextdotjs,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
-  SiVite,
-  SiLaravel,
-  SiMysql,
-  SiVercel,
-  SiCss,
-  SiFigma,
-  SiFirebase,
-} from 'react-icons/si';
-import { FaExternalLinkAlt } from 'react-icons/fa';
-import React, {
-  useRef,
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-} from 'react';
-import { gsap } from 'gsap';
+
 import { Flip } from 'gsap/Flip';
+import { gsap } from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import Image from 'next/image';
+
+import ProjectCard from './projects/ProjectCard';
+import ProjectDetailsModal from './projects/ProjectDetailsModal';
+import { PROJECT_LIST } from './projects/projectData';
+import type { ProjectCardProps } from './projects/types';
+
+export { ProjectCard };
+export type { ProjectCardProps };
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(Flip);
 }
 
-export interface ProjectCardProps {
-  name: string;
-  description: string;
-  tools: { icon: React.ReactNode; label: string }[];
-  releaseDate: string;
-  link: string;
-  thumbnail: string;
-}
+const FILTER_TABS = ['All', 'Web Development', 'UI/UX'] as const;
+type FilterTab = (typeof FILTER_TABS)[number];
 
-const BRAND_COLORS: Record<string, string> = {
-  Laravel: '#FF2D20',
-  HTML5: '#E34F26',
-  TailwindCSS: '#06B6D4',
-  MySQL: '#4479A1',
-  JavaScript: '#F7DF1E',
-  Vite: '#646CFF',
-  React: '#61DAFB',
-  'Next.js': '#FFFFFF',
-  Vercel: '#FFFFFF',
-  TypeScript: '#3178C6',
-  CSS: '#1572B6',
-};
+const TAB_COUNTS = FILTER_TABS.reduce<Record<FilterTab, number>>(
+  (counts, tab) => {
+    counts[tab] =
+      tab === 'All'
+        ? PROJECT_LIST.length
+        : PROJECT_LIST.filter((project) => project.category === tab).length;
+    return counts;
+  },
+  { All: 0, 'Web Development': 0, 'UI/UX': 0 },
+);
 
-const FILTER_TABS = ['All', 'Website', 'UI/UX'] as const;
+function updateProjectUrl(projectId: string | null) {
+  if (typeof window === 'undefined') return;
 
-export function ProjectCard({
-  name,
-  description,
-  tools,
-  releaseDate,
-  thumbnail,
-  link,
-}: ProjectCardProps) {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const zone2Ref = useRef<HTMLDivElement>(null);
-  const rectRef = useRef<DOMRect | null>(null);
+  const url = new URL(window.location.href);
+  if (projectId) {
+    url.searchParams.set('project', projectId);
+    url.hash = 'projects';
+  } else {
+    url.searchParams.delete('project');
+  }
 
-  const updateRect = useCallback(() => {
-    if (zone2Ref.current) {
-      rectRef.current = zone2Ref.current.getBoundingClientRect();
-    }
-  }, []);
-
-  useEffect(() => {
-    updateRect();
-    window.addEventListener('resize', updateRect);
-    window.addEventListener('scroll', updateRect, true);
-    return () => {
-      window.removeEventListener('resize', updateRect);
-      window.removeEventListener('scroll', updateRect, true);
-    };
-  }, [updateRect]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!rectRef.current) return;
-    setCoords({
-      x: e.clientX - rectRef.current.left,
-      y: e.clientY - rectRef.current.top,
-    });
-  };
-
-  const onMouseEnter = () => {
-    updateRect();
-    setIsHovered(true);
-  };
-
-  return (
-    <div
-      className="project-card"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Zone 1 — Thumbnail Section (top ~55% of card height) */}
-      <div className="zone1-thumbnail">
-        <Image
-          src={thumbnail}
-          alt={name}
-          className="thumbnail-image"
-          width={380}
-          height={157}
-          loading = "lazy"
-        />
-        <div className="image-overlay" />
-
-        {/* Decorative Chrome Overlay with Dots & Live Demo Button */}
-
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="project-card-link"
-        >
-          <div className="live-demo-button">
-            <span>Live Demo</span>
-            <FaExternalLinkAlt size={8} className="external-icon" />
-          </div>
-        </a>
-      </div>
-
-      {/* Zone 2 — Info Section (bottom ~45% of card height) */}
-      <div ref={zone2Ref} className="zone2-info" onMouseMove={handleMouseMove}>
-        <div
-          className="spotlight-overlay"
-          style={{
-            opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(circle 180px at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.07), transparent 70%)`,
-          }}
-        />
-
-        <div className="info-content">
-          <h3 className="project-name">{name}</h3>
-          <p className="project-description">{description}</p>
-          <div className="info-spacer" />
-          <div className="bottom-row">
-            <div className="tools-row">
-              {tools.slice(0, 4).map((tool, idx) => {
-                const color = BRAND_COLORS[tool.label] || '#cccccc';
-                return (
-                  <div
-                    key={idx}
-                    className="tool-chip"
-                    title={tool.label}
-                    style={{
-                      color: color,
-                      borderColor: `${color}25`,
-                      backgroundColor: `${color}0c`,
-                    }}
-                  >
-                    {tool.icon}
-                  </div>
-                );
-              })}
-            </div>
-            <span className="release-date">{releaseDate}</span>
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .project-card {
-          width: 380px;
-          height: 285px; /* 4:3 Aspect Ratio */
-          border-radius: 16px;
-          overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-          display: flex;
-          flex-direction: column;
-          background: #0d0d0d;
-          transition: transform 300ms ease;
-          cursor: default;
-          position: relative;
-          user-select: none;
-        }
-
-        .project-card-link {
-          cursor: pointer;
-          display: inline-flex;
-        }
-
-        .project-card:hover {
-          transform: translateY(-4px);
-        }
-
-        .zone1-thumbnail {
-          flex: 0 0 55%;
-          height: 55%;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .thumbnail-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-
-        .image-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
-          pointer-events: none;
-        }
-
-        .live-demo-button {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          background: rgba(0, 0, 0, 0.6);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          padding: 5px 10px;
-          border-radius: 20px;
-          font-size: 10px;
-          font-weight: 700;
-          color: #ffffff;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          transition: all 200ms ease;
-        }
-
-        .project-card:hover .live-demo-button {
-          background: #00c9a7;
-          border-color: #00c9a7;
-          color: #000000;
-          box-shadow: 0 0 12px rgba(0, 201, 167, 0.4);
-        }
-
-        :global(.external-icon) {
-          margin-bottom: 1px;
-        }
-
-        .zone2-info {
-          flex: 0 0 45%;
-          height: 45%;
-          position: relative;
-          overflow: hidden;
-          background-color: #0d0d0d;
-          padding: 16px 20px 14px;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .spotlight-overlay {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1;
-          transition: opacity 300ms ease;
-        }
-
-        .info-content {
-          position: relative;
-          z-index: 2;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .project-name {
-          font-size: 16px;
-          font-weight: 700;
-          color: #ffffff;
-          line-height: 1.2;
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .project-description {
-          font-size: 12px;
-          color: #888888;
-          line-height: 1.45;
-          margin: 4px 0 0 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .info-spacer {
-          flex-grow: 1;
-          min-height: 8px;
-        }
-
-        .bottom-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .tools-row {
-          display: flex;
-          gap: 6px;
-          overflow: hidden;
-        }
-
-        .tool-chip {
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 6px;
-          border: 1px solid transparent;
-          flex-shrink: 0;
-          font-size: 14px;
-          transition: transform 200ms ease;
-        }
-
-        .tool-chip:hover {
-          transform: scale(1.1);
-        }
-
-        .release-date {
-          font-size: 11px;
-          color: #888888;
-          margin: 0;
-        }
-
-        @media (max-width: 440px) {
-          .project-card {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4 / 3;
-          }
-        }
-      `}</style>
-    </div>
+  window.history.replaceState(
+    window.history.state,
+    '',
+    `${url.pathname}${url.search}${url.hash}`,
   );
 }
 
-const PROJECT_LIST = [
-  {
-    name: 'MI Techno Design',
-    description:
-      'Website I made for Informatics Management student association profile',
-    tools: [
-      { icon: <SiLaravel />, label: 'Laravel' },
-      { icon: <SiHtml5 />, label: 'HTML5' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-      { icon: <SiMysql />, label: 'MySQL' },
-    ],
-    releaseDate: 'November 2025',
-    thumbnail: '/mi-techno-op.jpeg',
-    link: 'https://github.com/yourfatherisgreen/backup-new-mi-techno',
-    category: 'Website',
-  },
-
-  {
-    name: 'INHALE STORE',
-    description: 'Marketplace project i made to learn about react js ',
-    tools: [
-      { icon: <SiVite />, label: 'Vite' },
-      { icon: <SiReact />, label: 'React' },
-      { icon: <SiNextdotjs />, label: 'Next.js' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-      { icon: <SiVercel />, label: 'Vercel' },
-    ],
-    releaseDate: 'March 2026',
-    thumbnail: '/inhale-store.jpg',
-    link: 'https://inhalestore.vercel.app/',
-    category: 'Website',
-  },
-  {
-    name: 'Keep',
-    description:
-      'My first PWA I build that allows you to curate your saved videos accross all social media',
-    tools: [
-      { icon: <SiReact />, label: 'React' },
-      { icon: <SiNextdotjs />, label: 'Next.js' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-      { icon: <SiFirebase />, label: 'Firebase' },
-    ],
-    releaseDate: 'May 2026',
-    thumbnail: '/keep2.png',
-    link: 'https://keep-app-529304572716.asia-southeast1.run.app/playlist/pl-1780131575841-o1j57',
-    category: 'Website',
-  },
-  {
-    name: 'Portofolio website',
-    description:
-      'This portofolio website that i made to experess my creativity and showcase my works',
-    tools: [
-      { icon: <SiNextdotjs />, label: 'Next.js' },
-      { icon: <SiReact />, label: 'React' },
-      { icon: <SiTypescript />, label: 'TypeScript' },
-      { icon: <SiVercel />, label: 'Vercel' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-    ],
-    releaseDate: 'May 2026',
-    thumbnail: '/portofolio.jpg',
-    link: 'https://muhammadazmi.my.id',
-    category: 'Website',
-  },
-  {
-    name: 'Archia Design Prototype',
-    description:
-      'Prototype design I made for my hackaton project. The concept is AI-Powered itenerary app',
-    tools: [{ icon: <SiFigma />, label: 'Figma' }],
-    releaseDate: 'April 2026',
-    thumbnail: '/archia.png',
-    link: 'https://www.figma.com/proto/xFkcAQtH7PEyanSxnpIx6p/Untitled?node-id=0-1&t=BYW32lpagmbU1Jyq-1',
-    category: 'UI/UX',
-  },
-  {
-    name: 'Nefflix Clone',
-    description:
-      'A simple website I made for my girlfriend to keep our memories in a different way',
-    tools: [
-      { icon: <SiHtml5 />, label: 'HTML5' },
-      { icon: <SiTailwindcss />, label: 'TailwindCSS' },
-      { icon: <SiJavascript />, label: 'JavaScript' },
-    ],
-    releaseDate: 'February 2025',
-    thumbnail: '/netflix-clone.jpg',
-    link: 'https://epictosmomentos.vercel.app/',
-    category: 'Website',
-  },
-];
-
 export default function Projects() {
-  const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeTab, setActiveTab] = useState<FilterTab>('All');
+  const [selectedProject, setSelectedProject] =
+    useState<ProjectCardProps | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleTabChange = (tab: string) => {
-    if (tab === activeTab) return;
+  useEffect(() => {
+    const selectProjectFromUrl = () => {
+      const projectId = new URL(window.location.href).searchParams.get(
+        'project',
+      );
+      setSelectedProject(
+        PROJECT_LIST.find((project) => project.id === projectId) ?? null,
+      );
+    };
 
-    if (containerRef.current) {
-      const state = Flip.getState('.project-card-wrapper');
-
-      flushSync(() => {
-        setActiveTab(tab);
-      });
-
-      Flip.from(state, {
-        duration: 0.5,
-        ease: 'power3.out',
-        absolute: true,
-        scale: true,
-        stagger: 0.02,
-        onEnter: (elements) =>
-          gsap.fromTo(
-            elements,
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.2)' },
-          ),
-        onLeave: (elements) =>
-          gsap.to(elements, { opacity: 0, scale: 0.8, duration: 0.3 }),
-      });
-    } else {
-      setActiveTab(tab);
-    }
-  };
-
-  const tabCounts = useMemo(() => {
-    const counts: Record<string, number> = { All: PROJECT_LIST.length };
-    FILTER_TABS.forEach((tab) => {
-      if (tab !== 'All') {
-        counts[tab] = PROJECT_LIST.filter((p) => p.category === tab).length;
-      }
-    });
-    return counts;
+    selectProjectFromUrl();
+    window.addEventListener('popstate', selectProjectFromUrl);
+    return () => window.removeEventListener('popstate', selectProjectFromUrl);
   }, []);
 
+  const handleTabChange = (tab: FilterTab) => {
+    if (tab === activeTab) return;
+
+    if (!containerRef.current) {
+      setActiveTab(tab);
+      return;
+    }
+
+    const cards = containerRef.current.querySelectorAll(
+      '.project-card-wrapper',
+    );
+    const state = Flip.getState(cards);
+
+    flushSync(() => {
+      setActiveTab(tab);
+    });
+
+    Flip.from(state, {
+      duration: 0.5,
+      ease: 'power3.out',
+      absolute: true,
+      scale: true,
+      stagger: 0.025,
+      onEnter: (elements) =>
+        gsap.fromTo(
+          elements,
+          { opacity: 0, scale: 0.92 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.15)' },
+        ),
+      onLeave: (elements) =>
+        gsap.to(elements, { opacity: 0, scale: 0.92, duration: 0.25 }),
+    });
+  };
+
+  const openProject = (project: ProjectCardProps) => {
+    setSelectedProject(project);
+    updateProjectUrl(project.id);
+  };
+
+  const closeProject = () => {
+    setSelectedProject(null);
+    updateProjectUrl(null);
+  };
+
+  const selectedProjectIndex = selectedProject
+    ? PROJECT_LIST.findIndex((project) => project.id === selectedProject.id)
+    : -1;
+
+  const showNextProject = () => {
+    const nextIndex = (selectedProjectIndex + 1) % PROJECT_LIST.length;
+    const nextProject = PROJECT_LIST[nextIndex];
+    setSelectedProject(nextProject);
+    updateProjectUrl(nextProject.id);
+  };
+
   return (
-    <section id="projects" className="projects-section">
-      <div className="section-title-wrap">
-        <span className="section-subtitle">MY PROJECTS</span>
-        <h2 className="section-title">Showcase of My Works</h2>
+    <div className="relative z-10 flex min-h-screen w-full flex-col items-center px-5 py-24 font-sans sm:px-6 lg:py-28">
+      <div className="mb-11 max-w-3xl text-center sm:mb-14">
+        <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#00c9a7] sm:text-base">
+          My projects
+        </span>
+        <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[-0.045em] text-white sm:text-5xl">
+          Selected work, built with intent.
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/40 sm:text-base">
+          A closer look at the products, experiments, and interfaces I have
+          designed and developed.
+        </p>
       </div>
 
-      {/* ── Filter Pills (Exact replica of Skills.tsx styling) ── */}
-      <div className="flex justify-center mb-14 z-20 relative">
-        <div className="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-black border border-white/[0.06] backdrop-blur-md">
-          {FILTER_TABS.map((tab) => (
+      <div
+        role="tablist"
+        aria-label="Filter projects"
+        className="relative z-20 mb-10 inline-flex max-w-full flex-wrap justify-center gap-1.5 rounded-2xl border border-white/[0.07] bg-black/55 p-1.5 shadow-[0_16px_50px_rgba(0,0,0,0.25)] backdrop-blur-xl sm:mb-14"
+      >
+        {FILTER_TABS.map((tab) => {
+          const isActive = activeTab === tab;
+          return (
             <button
               key={tab}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
               onClick={() => handleTabChange(tab)}
-              className={`
-                px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide
-                transition-all duration-300 ease-out whitespace-nowrap cursor-pointer
-                ${
-                  activeTab === tab
-                    ? 'bg-[#00C9A7] text-black shadow-[0_0_20px_rgba(0,201,167,0.3)]'
-                    : 'text-white/50 hover:text-black hover:bg-white'
-                }
-              `}
+              className={`cursor-pointer whitespace-nowrap rounded-xl px-3.5 py-2.5 text-[11px] font-semibold tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7] sm:px-5 sm:text-sm ${
+                isActive
+                  ? 'bg-[#00c9a7] text-[#04100e] shadow-[0_0_24px_rgba(0,201,167,0.24)]'
+                  : 'text-white/45 hover:bg-white/[0.07] hover:text-white'
+              }`}
             >
               {tab}
               <span
-                className={`ml-1.5 text-[10px] sm:text-xs ${
-                  activeTab === tab ? 'text-black font-bold' : 'text-blackz'
+                className={`ml-2 text-[9px] tabular-nums sm:text-[10px] ${
+                  isActive ? 'text-black/55' : 'text-white/25'
                 }`}
               >
-                {tabCounts[tab]}
+                {TAB_COUNTS[tab]}
               </span>
             </button>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
-      <div ref={containerRef} className="projects-container">
-        {PROJECT_LIST.map((project, index) => {
+      <div
+        ref={containerRef}
+        className="grid w-full max-w-[1200px] grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8"
+      >
+        {PROJECT_LIST.map((project) => {
           const isVisible =
             activeTab === 'All' || project.category === activeTab;
           return (
             <div
-              key={index}
-              className={`project-card-wrapper ${isVisible ? 'block' : 'hidden'}`}
+              key={project.id}
+              className={`project-card-wrapper min-w-0 w-full ${
+                isVisible ? 'block' : 'hidden'
+              }`}
+              aria-hidden={!isVisible}
             >
               <ProjectCard
-                name={project.name}
-                description={project.description}
-                tools={project.tools}
-                releaseDate={project.releaseDate}
-                thumbnail={project.thumbnail}
-                link={project.link}
+                {...project}
+                onOpen={() => openProject(project)}
               />
             </div>
           );
         })}
       </div>
 
-      <style jsx>{`
-        .projects-section {
-          position: relative;
-          z-index: 10;
-          width: 100%;
-          min-height: 100vh;
-          background-color: transparent;
-          padding: 100px 24px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          font-family:
-            var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-        }
-
-        .section-title-wrap {
-          text-align: center;
-          margin-bottom: 50px;
-        }
-
-        .section-subtitle {
-          font-size: 24px;
-          color: #00c9a7;
-          text-transform: uppercase;
-          letter-spacing: 0.3em;
-          font-weight: 700;
-        }
-
-        .section-title {
-          font-size: 3rem;
-          font-weight: 800;
-          color: #ffffff;
-          margin-top: 12px;
-          letter-spacing: -0.03em;
-        }
-
-        .projects-container {
-          max-width: 1200px;
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-          gap: 30px;
-          justify-items: center;
-        }
-
-        .project-card-wrapper {
-          display: block;
-        }
-
-        .project-card-wrapper.hidden {
-          display: none;
-        }
-
-        .project-card-link {
-          text-decoration: none;
-          display: block;
-        }
-
-        @media (max-width: 768px) {
-          .section-title {
-            font-size: 2rem;
-          }
-          .projects-container {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
-        }
-      `}</style>
-    </section>
+      <ProjectDetailsModal
+        key={selectedProject?.id ?? 'closed-project-modal'}
+        project={selectedProject}
+        projectIndex={Math.max(selectedProjectIndex, 0)}
+        projectCount={PROJECT_LIST.length}
+        onClose={closeProject}
+        onNext={showNextProject}
+      />
+    </div>
   );
 }

@@ -16,7 +16,7 @@ export default function Page() {
           <div className="grid min-h-[calc(100vh-11rem)] items-center gap-12 lg:grid-cols-[minmax(0,0.94fr)_minmax(390px,0.76fr)]">
             <div className="relative max-w-3xl">
             <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-[#00C9A7] uppercase mb-6 block animate-fade-in">
-              Full Stack Web Developer
+             IT Student | Web Development Enthusiast
             </span>
             <TextType
               text={['Hi, Im Muhammad Azmi']}
@@ -38,9 +38,7 @@ export default function Page() {
               </span>
             </p>
 
-            <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed mb-12">
-            Information Technology student focused on building practical web applications with React and other frameworks. I create responsive interfaces, PWAs, and digital products that solve real problems.
-            </p>
+          
             <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
                 <button className="px-8 py-4 bg-[#00C9A7] text-black font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 shadow-xl shadow-[#00C9A7]/10 rounded-2xl ">

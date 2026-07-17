@@ -6,12 +6,11 @@ import { useState, useEffect, useMemo } from 'react';
 const roles = [
   { text: 'Web Developer', color: '#00C9A7' },
   { text: 'UI/UX Designer', color: '#00C9A7' },
-  { text: 'Graphic Designer', color: '#00C9A7' },
   { text: 'Student', color: '#00C9A7' },
 ];
 
 export default function ShiftingText() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {

@@ -22,7 +22,7 @@ const menuItems = [
     icon: <IoInformationCircleOutline size="1.3rem" />,
   },
   {
-    label: 'Skills',
+    label: 'Tech Stack',
     ariaLabel: 'Go to skills section',
     link: '#skills',
     icon: <FaCode size="1.1rem" />,
@@ -41,11 +41,7 @@ const menuItems = [
   },
 ];
 
-const socialItems = [
-  { label: 'Twitter', link: 'https://twitter.com' },
-  { label: 'GitHub', link: 'https://github.com' },
-  { label: 'LinkedIn', link: 'https://linkedin.com' },
-];
+
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState(menuItems[0].link);
@@ -181,7 +177,7 @@ export default function Navbar() {
               />
               <div>
                 <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap">
-                  Muhammad Azmi
+                  muhammadazmi.my.id
                 </p>
               </div>
             </div>
@@ -226,7 +222,6 @@ export default function Navbar() {
         <StaggeredMenu
           position="right"
           items={menuItems}
-          socialItems={socialItems}
           displaySocials
           displayItemNumbering={false}
           menuButtonColor="#ffffff"
