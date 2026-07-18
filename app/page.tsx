@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import Background from '@app/components/Background';
 import Navbar from '@app/components/Navbar';
 import ShiftingText from '@app/components/ShiftingText';
@@ -6,6 +8,9 @@ import TextType from './components/TextType';
 import Skills from './components/Skills';
 import Projects from '@app/components/Projects';
 import Contact from '@app/components/Contact';
+import GitHubStats, {
+  GitHubStatsSkeleton,
+} from '@app/components/GitHubStats';
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
@@ -74,6 +79,9 @@ export default function Page() {
       <section id="contact" className="relative z-10 min-h-screen ml-0">
         <Contact />
       </section>
+      <Suspense fallback={<GitHubStatsSkeleton />}>
+        <GitHubStats />
+      </Suspense>
     </main>
   );
 }
