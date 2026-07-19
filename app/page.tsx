@@ -8,9 +8,12 @@ import TextType from './components/TextType';
 import Skills from './components/Skills';
 import Projects from '@app/components/Projects';
 import Contact from '@app/components/Contact';
+import ContactCard from '@app/components/contactcard/contactcard';
+import link from 'next/link';
 import GitHubStats, {
   GitHubStatsSkeleton,
 } from '@app/components/GitHubStats';
+import Link from 'next/link';
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
@@ -46,16 +49,17 @@ export default function Page() {
           
             <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
-                <button className="px-8 py-4 bg-[#00C9A7] text-black font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 shadow-xl shadow-[#00C9A7]/10 rounded-2xl ">
+                <button className="px-8 py-4 bg-[#00C9A7] backdrop-blur-xl
+                 border border-white text-black   font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
                  View Projects
                 </button>
               </a>
-              <a href="#contacts">
-                <button className="px-8 py-4 bg-white/10 backdrop-blur-xl
-                 border border-[#00C9A7]/30 text-white font-bold text-sm  tracking-widest hover:bg-[#00C9A7]/10 transition-all duration-300 rounded-2xl ">
+              <Link href="/contactcard">
+                <button className="px-8 py-4 bg-[#00C9A7] backdrop-blur-xl
+                 border border-white text-black   font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
                   Get In Touch
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -77,6 +81,9 @@ export default function Page() {
         <Projects />
       </section>
       <section id="contact" className="relative z-10 min-h-screen ml-0">
+        <Link href="/contactcard">
+        </Link>
+        
         <Contact />
       </section>
       <Suspense fallback={<GitHubStatsSkeleton />}>
