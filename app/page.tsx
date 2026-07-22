@@ -50,13 +50,13 @@ export default function Page() {
             <div className="flex flex-wrap gap-4 mt-12">
               <a href="#projects">
                 <button className="px-8 py-4 bg-[#00C9A7] backdrop-blur-xl
-                 border border-white text-black   font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
+                 border border-white text-black   font-bold text-medium  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
                  View Projects
                 </button>
               </a>
               <Link href="/contactcard">
                 <button className="px-8 py-4 bg-[#00C9A7] backdrop-blur-xl
-                 border border-white text-black   font-bold text-sm  tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
+                 border border-white text-black   font-bold text-medium tracking-widest hover:bg-[#24e4c2] transition-all duration-300 rounded-2xl  ">
                   Get In Touch
                 </button>
               </Link>
