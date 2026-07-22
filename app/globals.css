@@ -145,3 +145,29 @@ body {
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   Cybernetic Bento Grid
+   ═══════════════════════════════════════════════════════ */
+
+.bento-item {
+  position: relative;
+  background: rgba(13, 13, 13, 0.6);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: border-color 0.35s ease;
+}
+
+@media (min-width: 640px) {
+  .bento-item {
+    padding: 2rem;
+  }
+}
+
+.bento-item:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+

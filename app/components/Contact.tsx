@@ -1,7 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import {
+  GraduationCap,
+  Code2,
+  Palette,
+  Workflow,
+} from 'lucide-react';
 import ContactForm from './form/contactform';
+import {
+  GitHubActivityBentoContent,
+  type GitHubSnapshotClient,
+} from './GitHubActivityBento';
 
 /* ─── Intersection Observer hook for scroll-driven reveals ─── */
 function useReveal(threshold = 0.15) {
@@ -53,38 +63,55 @@ export function Reveal({
   );
 }
 
-/* ─── Main Contact Component ─── */
-export default function Contact() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isFormHovered, setIsFormHovered] = useState(false);
-  const formRef = useRef<HTMLDivElement>(null);
-  const rectRef = useRef<DOMRect | null>(null);
+/* ─── BentoItem ─── */
+function BentoItem({
+  className = '',
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={`bento-item ${className}`}>
+      {children}
+    </div>
+  );
+}
 
-  const updateRect = useCallback(() => {
-    if (formRef.current) {
-      rectRef.current = formRef.current.getBoundingClientRect();
-    }
-  }, []);
+/* ─── Services Data ─── */
+const SERVICES = [
+  {
+    icon: GraduationCap,
+    title: 'Assignment Helper',
+    description:
+      'Academic guidance and assignment assistance to help you excel in your studies.',
+  },
+  {
+    icon: Code2,
+    title: 'Web Development',
+    description:
+      'Modern, responsive websites built with cutting-edge technologies and frameworks.',
+  },
+  {
+    icon: Palette,
+    title: 'UI/UX Design',
+    description:
+      'Beautiful, intuitive interfaces crafted with attention to detail and user experience.',
+  },
+  {
+    icon: Workflow,
+    title: 'Business Automation',
+    description:
+      'Streamline your operations with smart automation solutions that save time.',
+  },
+] as const;
 
-  useEffect(() => {
-    if (isFormHovered) {
-      updateRect();
-      window.addEventListener('resize', updateRect);
-      window.addEventListener('scroll', updateRect, true);
-    }
-    return () => {
-      window.removeEventListener('resize', updateRect);
-      window.removeEventListener('scroll', updateRect, true);
-    };
-  }, [isFormHovered, updateRect]);
-
-  const handleFormMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!rectRef.current) return;
-    setMousePos({
-      x: e.clientX - rectRef.current.left,
-      y: e.clientY - rectRef.current.top,
-    });
-  };
+/* ─── Main Contact Bento Grid ─── */
+export default function Contact({
+  githubSnapshot,
+}: {
+  githubSnapshot: GitHubSnapshotClient;
+}) {
 
   return (
     <section
@@ -118,7 +145,7 @@ export default function Contact() {
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         {/* ── Header ── */}
         <Reveal>
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00C9A7]/70">
               Get In Touch
             </span>
@@ -132,75 +159,69 @@ export default function Contact() {
           </div>
         </Reveal>
 
-        {/* ── Center Layout for Form ── */}
-        <div className="flex justify-center">
-          <Reveal delay={200} className="w-full max-w-2xl">
-            <div
-              ref={formRef}
-              className="contact-form-card"
-              onMouseMove={handleFormMouseMove}
-              onMouseEnter={() => {
-                updateRect();
-                setIsFormHovered(true);
-              }}
-              onMouseLeave={() => setIsFormHovered(false)}
-            >
-              {/* Spotlight glow */}
-              <div
-                className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-500"
-                style={{
-                  opacity: isFormHovered ? 1 : 0,
-                  background: `radial-gradient(circle 250px at ${mousePos.x}px ${mousePos.y}px, rgba(108, 99, 255, 0.06), transparent 60%)`,
-                }}
-              />
-
+        {/* ═══ BENTO GRID ═══ */}
+        <div className="bento-wrapper rounded-[28px] border border-white/[0.085] bg-[#0a0b0b]/80 shadow-[0_32px_100px_rgba(0,0,0,0.35)] p-3 sm:p-4 lg:p-5">
+          <div className="flex flex-col gap-3 sm:gap-4">
+          {/* ── TOP ROW: Services ── */}
+          <Reveal delay={100}>
+            <BentoItem className="!p-6 sm:!p-8">
               <div className="relative z-10">
-                <ContactForm />
+                 <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2">
+                  Services
+                </h3>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#00C9A7]/60 mb-4">
+                  I can help with
+                </p>
+               
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {SERVICES.map((service) => (
+                    <div
+                      key={service.title}
+                      className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 sm:p-5 transition-all duration-300 hover:bg-white/[0.05] hover:border-[#00C9A7]/20"
+                    >
+                      <div className="flex size-10 items-center justify-center rounded-xl border border-[#00c9a7]/15 bg-[#00c9a7]/[0.07] text-[#00c9a7] mb-3 transition-all duration-300 group-hover:bg-[#00c9a7]/[0.12] group-hover:border-[#00c9a7]/25">
+                        <service.icon size={20} />
+                      </div>
+                      <h4 className="text-sm font-bold text-white mb-1.5">
+                        {service.title}
+                      </h4>
+                      <p className="text-[11px] sm:text-xs leading-relaxed text-white/35">
+                        {service.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </BentoItem>
           </Reveal>
+
+          {/* ── BOTTOM ROW: GitHub (left) + Contact (right) ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* ── GitHub Activity ── */}
+            <Reveal delay={200}>
+              <BentoItem className="h-full">
+                <div className="relative z-10 h-full">
+                  <GitHubActivityBentoContent snapshot={githubSnapshot} />
+                </div>
+              </BentoItem>
+            </Reveal>
+
+            {/* ── Contact Form ── */}
+            <Reveal delay={300}>
+              <BentoItem className="h-full">
+                <div className="relative z-10 h-full">
+                  <ContactForm />
+                </div>
+              </BentoItem>
+            </Reveal>
+          </div>
+        </div>
         </div>
       </div>
 
       {/* ── Scoped Styles ── */}
       <style jsx>{`
-        /* ── Form card ── */
-        .contact-form-card {
-          position: relative;
-          background: rgba(13, 13, 13, 0.6);
-          backdrop-filter: blur(24px);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 1.5rem;
-          padding: 2rem;
-          overflow: hidden;
-        }
-
-        @media (min-width: 640px) {
-          .contact-form-card {
-            padding: 2.5rem;
-          }
-        }
-
-        .contact-form-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 1.5rem;
-          padding: 1px;
-          background: linear-gradient(
-            135deg,
-            rgba(108, 99, 255, 0.1),
-            transparent 50%,
-            rgba(0, 201, 167, 0.1)
-          );
-          -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-        }
-
         /* ── Input styles ── */
         :global(.contact-input) {
           width: 100%;

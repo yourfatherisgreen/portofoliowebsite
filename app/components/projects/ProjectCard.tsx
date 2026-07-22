@@ -105,7 +105,7 @@ export default function ProjectCard({
   };
 
   return (
-    <article className="group relative w-full overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0a0b0b] shadow-[0_24px_70px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-2 hover:border-[#00c9a7]/35 hover:shadow-[0_32px_90px_rgba(0,0,0,0.55)]">
+    <article className="h-full flex flex-col  relative w-full overflow-hidden rounded-[28px] border border-white/[0.09] bg-[#0a0b0b] shadow-[0_24px_70px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-2 hover:border-[#00c9a7]/35 hover:shadow-[0_32px_90px_rgba(0,0,0,0.55)]">
       <button
         type="button"
         onClick={onOpen}
@@ -174,7 +174,7 @@ export default function ProjectCard({
                 className="pointer-events-auto absolute right-0 top-12 z-50 w-[230px] origin-top-right animate-in rounded-2xl border border-white/10 bg-[#151717]/95 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.65)] backdrop-blur-2xl duration-150 fade-in zoom-in-95"
               >
                 <p className="px-2 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
-                  Share link
+                  Share This Project
                 </p>
                 <button
                   type="button"
@@ -238,7 +238,7 @@ export default function ProjectCard({
                   }}
                 >
                   {tool.icon}
-                  <span className="hidden sm:inline">{tool.label}</span>
+                  <span className="hidden sm:inline webkit-clamp-1">{tool.label}</span>
                 </span>
               );
             })}

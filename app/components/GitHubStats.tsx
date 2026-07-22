@@ -48,7 +48,7 @@ function buildContributionWeeks(days: ContributionDay[]) {
   );
 }
 
-function ContributionCalendar({ days }: { days: ContributionDay[] }) {
+export function ContributionCalendar({ days }: { days: ContributionDay[] }) {
   const weeks = buildContributionWeeks(days);
 
   return (
@@ -116,7 +116,7 @@ function ContributionCalendar({ days }: { days: ContributionDay[] }) {
   );
 }
 
-function StatCard({
+export function StatCard({
   icon,
   label,
   value,

@@ -8,12 +8,32 @@ import TextType from './components/TextType';
 import Skills from './components/Skills';
 import Projects from '@app/components/Projects';
 import Contact from '@app/components/Contact';
-import ContactCard from '@app/components/contactcard/contactcard';
-import link from 'next/link';
-import GitHubStats, {
-  GitHubStatsSkeleton,
-} from '@app/components/GitHubStats';
 import Link from 'next/link';
+import { getGitHubSnapshot } from '@app/components/github/githubData';
+
+/* ─── Server wrapper that fetches GitHub data and passes it to Contact ─── */
+async function ContactWithGitHub() {
+  const snapshot = await getGitHubSnapshot();
+  return <Contact githubSnapshot={snapshot} />;
+}
+
+/* ─── Loading skeleton for the contact bento grid ─── */
+function ContactBentoSkeleton() {
+  return (
+    <section className="relative z-10 min-h-screen ml-0">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 animate-pulse">
+        <div className="mx-auto h-4 w-32 rounded-full bg-[#00c9a7]/15 mb-4" />
+        <div className="mx-auto h-10 max-w-lg rounded-xl bg-white/[0.055] mb-12" />
+        <div className="h-48 rounded-[24px] border border-white/[0.06] bg-white/[0.025] mb-4" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="h-[420px] rounded-[24px] border border-white/[0.06] bg-white/[0.025]" />
+          <div className="h-[420px] rounded-[24px] border border-white/[0.06] bg-white/[0.025]" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Page() {
   return (
     <main className="relative w-full ml-0">
@@ -84,11 +104,10 @@ export default function Page() {
         <Link href="/contactcard">
         </Link>
         
-        <Contact />
+        <Suspense fallback={<ContactBentoSkeleton />}>
+          <ContactWithGitHub />
+        </Suspense>
       </section>
-      <Suspense fallback={<GitHubStatsSkeleton />}>
-        <GitHubStats />
-      </Suspense>
     </main>
   );
 }
