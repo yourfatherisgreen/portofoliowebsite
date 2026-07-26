@@ -134,7 +134,7 @@ export default function Projects() {
         <h2 className="mt-4 font-display text-3xl font-extrabold tracking-[-0.045em] text-white sm:text-5xl">
           Selected work, built with intent.
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/40 sm:text-base">
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/65 sm:text-base">
           A closer look at the products, experiments, and interfaces I have
           designed and developed.
         </p>
@@ -157,13 +157,13 @@ export default function Projects() {
               className={`cursor-pointer whitespace-nowrap rounded-xl px-3.5 py-2.5 text-[11px] font-semibold tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7] sm:px-5 sm:text-sm ${
                 isActive
                   ? 'bg-[#00c9a7] text-[#04100e] shadow-[0_0_24px_rgba(0,201,167,0.24)]'
-                  : 'text-white/45 hover:bg-white/[0.07] hover:text-white'
+                  : 'text-white/70 hover:bg-white/[0.07] hover:text-white'
               }`}
             >
               {tab}
               <span
                 className={`ml-2 text-[9px] tabular-nums sm:text-[10px] ${
-                  isActive ? 'text-black/55' : 'text-white/25'
+                  isActive ? 'text-black/70' : 'text-white/45'
                 }`}
               >
                 {TAB_COUNTS[tab]}

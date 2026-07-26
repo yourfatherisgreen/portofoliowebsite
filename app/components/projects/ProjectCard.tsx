@@ -45,7 +45,6 @@ export default function ProjectCard({
   tools,
   releaseDate,
   thumbnail,
-  link,
   category,
   tags,
   onOpen,
@@ -156,15 +155,14 @@ export default function ProjectCard({
             >
               <Share2 size={16} strokeWidth={1.8} />
             </button>
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pointer-events-auto flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.055] text-white/75 transition-all duration-200 hover:scale-105 hover:border-[#00c9a7]/50 hover:bg-[#00c9a7] hover:text-[#06110f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
-              aria-label={`Open ${name} live project in a new tab`}
+            <button
+              type="button"
+              onClick={onOpen}
+              className="pointer-events-auto relative z-20 flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.055] text-white/75 transition-all duration-200 hover:scale-105 hover:border-[#00c9a7]/50 hover:bg-[#00c9a7] hover:text-[#06110f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
+              aria-label={`View details for ${name}`}
             >
               <ArrowUpRight size={17} strokeWidth={1.9} />
-            </a>
+            </button>
 
             {isShareOpen && (
               <div
@@ -173,13 +171,13 @@ export default function ProjectCard({
                 aria-label={`Share ${name}`}
                 className="pointer-events-auto absolute right-0 top-12 z-50 w-[230px] origin-top-right animate-in rounded-2xl border border-white/10 bg-[#151717]/95 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.65)] backdrop-blur-2xl duration-150 fade-in zoom-in-95"
               >
-                <p className="px-2 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
+                <p className="px-2 pb-2 pt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white/65">
                   Share This Project
                 </p>
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-transparent px-3 py-3 text-left text-sm font-semibold text-white/85 transition-colors hover:border-white/10 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
+                    className="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-transparent px-3 py-3 text-left text-sm font-semibold text-white/95 transition-colors hover:border-white/10 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
                 >
                   <span
                     className={`flex size-8 items-center justify-center rounded-lg ${
@@ -207,7 +205,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <p className="pointer-events-none mt-3 line-clamp-2 max-w-[92%] text-sm leading-6 text-white/45">
+        <p className="pointer-events-none mt-3 line-clamp-2 max-w-[92%] text-sm leading-6 text-white/70">
           {description}
         </p>
 
@@ -215,7 +213,7 @@ export default function ProjectCard({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-[10px] font-semibold tracking-[0.04em] text-white/55 sm:text-[11px]"
+              className="rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-[10px] font-semibold tracking-[0.04em] text-white/75 sm:text-[11px]"
             >
               {tag}
             </span>
@@ -243,7 +241,7 @@ export default function ProjectCard({
               );
             })}
           </div>
-          <span className="shrink-0 pb-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/30">
+          <span className="shrink-0 pb-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/50">
             {releaseDate}
           </span>
         </div>

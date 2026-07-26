@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import {
-  ArrowUpRight,
   CalendarDays,
   ChevronLeft,
   ChevronRight,
@@ -17,6 +16,9 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from 'react-icons/fa';
+import {
+  CiShare1,
+}from 'react-icons/ci';
 
 import type { ProjectCardProps } from './types';
 
@@ -137,7 +139,7 @@ export default function ProjectDetailsModal({
                 Case study
               </span>
               <span className="h-4 w-px bg-white/15" />
-              <span className="text-[11px] font-medium tabular-nums text-white/35">
+              <span className="text-[11px] font-medium tabular-nums text-white/55">
                 {String(projectIndex + 1).padStart(2, '0')} /{' '}
                 {String(projectCount).padStart(2, '0')}
               </span>
@@ -147,7 +149,7 @@ export default function ProjectDetailsModal({
               <button
                 type="button"
                 onClick={onNext}
-                className="group flex h-10 cursor-pointer items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-4 text-xs font-semibold text-white/65 transition-all hover:border-white/20 hover:bg-white/[0.09] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
+                className="group flex h-10 cursor-pointer items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-4 text-xs font-semibold text-white/85 transition-all hover:border-white/20 hover:bg-white/[0.09] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
               >
                 <span className="hidden sm:inline">Next project</span>
                 <span className="sm:hidden">Next</span>
@@ -160,7 +162,7 @@ export default function ProjectDetailsModal({
                 ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
-                className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.045] text-white/70 transition-all hover:rotate-3 hover:border-white/25 hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
+                className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.045] text-white/85 transition-all hover:rotate-3 hover:border-white/25 hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
                 aria-label="Close project details"
               >
                 <X size={17} />
@@ -247,7 +249,7 @@ export default function ProjectDetailsModal({
                   {project.fullDescription.split('\n\n').map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-[15px] leading-7 text-white/55 sm:text-base sm:leading-8"
+                    className="text-[15px] leading-7 text-white/75 sm:text-base sm:leading-8"
                     >
                       {paragraph}
                     </p>
@@ -276,11 +278,11 @@ export default function ProjectDetailsModal({
                     className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#00c9a7] text-[#04100e] transition-all hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e1010]"
                     aria-label={`Open ${project.name} live project in a new tab`}
                   >
-                    <ArrowUpRight size={19} strokeWidth={2} />
+                    <CiShare1 size={19} strokeWidth={1} />
                   </a>
                 </div>
 
-                <p className="mt-5 text-sm leading-6 text-white/45 sm:text-[15px]">
+                <p className="mt-5 text-sm leading-6 text-white/70 sm:text-[15px]">
                   {project.description}
                 </p>
 
@@ -290,10 +292,10 @@ export default function ProjectDetailsModal({
                       <CalendarDays size={16} />
                     </span>
                     <div>
-                      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/25">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/45">
                         Released
                       </p>
-                      <p className="mt-1 text-sm font-medium text-white/70">
+                      <p className="mt-1 text-sm font-medium text-white/85">
                         {project.releaseDate}
                       </p>
                     </div>
@@ -303,10 +305,10 @@ export default function ProjectDetailsModal({
                       <FolderOpen size={16} />
                     </span>
                     <div>
-                      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/25">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/45">
                         Discipline
                       </p>
-                      <p className="mt-1 text-sm font-medium text-white/70">
+                      <p className="mt-1 text-sm font-medium text-white/85">
                         {project.category}
                       </p>
                     </div>
@@ -314,14 +316,14 @@ export default function ProjectDetailsModal({
                 </div>
 
                 <div className="mt-8">
-                  <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-white/25">
+                  <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-white/45">
                     Project tags
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-white/[0.08] bg-black/25 px-3 py-2 text-[11px] font-semibold text-white/55"
+                        className="rounded-full border border-white/[0.08] bg-black/25 px-3 py-2 text-[11px] font-semibold text-white/75"
                       >
                         {tag}
                       </span>
@@ -330,14 +332,14 @@ export default function ProjectDetailsModal({
                 </div>
 
                 <div className="mt-8">
-                  <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-white/25">
+                  <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-white/45">
                     Built with
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tools.map((tool) => (
                       <span
                         key={tool.label}
-                        className="flex items-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] px-3 py-2 text-[11px] font-medium text-white/55 [&>svg]:size-3.5"
+                        className="flex items-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.03] px-3 py-2 text-[11px] font-medium text-white/75 [&>svg]:size-3.5"
                       >
                         {tool.icon}
                         {tool.label}
@@ -347,7 +349,7 @@ export default function ProjectDetailsModal({
                 </div>
 
                 <div className="mt-12 border-t border-white/[0.07] pt-7 lg:mt-16">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/25">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45">
                     Connect with me
                   </p>
                   <div className="mt-4 flex gap-2.5">
@@ -358,7 +360,7 @@ export default function ProjectDetailsModal({
                         target="_blank"
                         rel="noopener noreferrer"
                         title={social.label}
-                        className="flex size-10 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.035] text-sm text-white/45 transition-all hover:-translate-y-1 hover:border-[#00c9a7]/40 hover:bg-[#00c9a7] hover:text-[#04100e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
+                        className="flex size-10 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.035] text-sm text-white/70 transition-all hover:-translate-y-1 hover:border-[#00c9a7]/40 hover:bg-[#00c9a7] hover:text-[#04100e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00c9a7]"
                         aria-label={`Connect on ${social.label}`}
                       >
                         {social.icon}

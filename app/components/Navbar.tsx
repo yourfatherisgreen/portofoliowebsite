@@ -167,7 +167,7 @@ export default function Navbar() {
       <nav className="fixed inset-x-0 top-0 z-50 bg-transparent p-4 text-white hidden lg:block">
         <div className="cursor-pointer flex items-center justify-center">
           <div className="text-sm font-light lg:fixed lg:left-8 lg:text-lg rounded-xl text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg group px-2">
-            <div className="flex  items-center gap-2">
+            <div className="flex  items-center gap-2 ">
               <Image
                 src="/personallogonew.svg"
                 alt="logo"
