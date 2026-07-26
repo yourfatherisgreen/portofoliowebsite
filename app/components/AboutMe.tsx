@@ -80,10 +80,10 @@ function TimelineItem({
           {title}
         </h3>
         {subtitle && (
-          <p className="text-sm text-white/50 font-medium mt-0.5">{subtitle}</p>
+          <p className="text-sm text-white/80 font-medium mt-0.5">{subtitle}</p>
         )}
         {description && (
-          <p className="mt-2 text-sm text-white/60 leading-relaxed font-light">
+          <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
             {description}
           </p>
         )}
@@ -247,10 +247,10 @@ export default function AboutMe() {
               </Reveal>
               <Reveal delay={100}>
                 <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter leading-[1.1]">
-                  Building digital
+                 Integrating technology 
                   <br />
-                  experiences that{' '}
-                  <span className="text-[#00C9A7]">matter</span>
+                  To create {' '}
+                  <span className="text-[#00C9A7]">Impact</span>
                 </h2>
               </Reveal>
               <Reveal delay={200}>
@@ -266,11 +266,11 @@ export default function AboutMe() {
                   . My mission is to build efficient software that functions
                   well and delivers a pleasing{' '}
                   <span className="text-white/90 font-medium">UI/UX</span>{' '}
-                  experience. I work with modern tech stacks to bring ideas to
+                  experience. I work with modern tech stacks to bring ideas 
                   life.
                 </p>
                 <p className="mt-6 text-base sm:text-lg text-white/90 leading-relaxed font-light max-w-2xl">
-                  I am open to collaboration opportunities, freelance projects, and internships. I am particularly interested in contributing to meaningful products that solve real-world problems and create value for users. If you have a project, idea, or opportunity in mind, feel free to connect—I would be happy to discuss how we can work together and create impactful solutions.
+                  I am open to collaboration opportunities, freelance projects, and internships. I am interested in contributing to meaningful products that solve real-world problems and create value for users and my clients. If you have a project, idea, or opportunity in mind, feel free to contact me,I would be happy to discuss how we can work together and create impactful solutions.
                 </p>
               </Reveal>
             </div>
