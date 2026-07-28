@@ -10,6 +10,7 @@ import {
   Users,
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import Image from 'next/image';
 
 /* ─── Types (duplicated to avoid importing server-only module) ─── */
 export interface ContributionDay {
@@ -207,9 +208,16 @@ export function GitHubActivityBentoContent({
       {/* Header */}
       <div className="flex flex-col gap-4 border-b border-white/[0.07] pb-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-white text-black">
-            <FaGithub size={20} />
-          </span>
+        
+            <Image
+              src="/Shrek.jpg"
+              alt="GitHub logo"
+              width={40}
+              height={40}
+              className="rounded-full border border-white/10 bg-white/[0.025] object-cover mr-1 hover:scale-105 transition-transform duration-300"
+            />
+        
+          
           <div className="min-w-0">
             <p className="truncate font-display text-base font-bold text-white sm:text-lg">
               {profile?.name ?? 'Muhammad Azmi'}
@@ -229,7 +237,7 @@ export function GitHubActivityBentoContent({
                   : 'bg-amber-400'
               }`}
             />
-            {hasLiveData ? 'Live' : 'Offline'}
+            {hasLiveData ? 'Live Data' : 'Offline'}
           </span>
           <a
             href={profile?.url ?? 'https://github.com/yourfatherisgreen'}
@@ -303,10 +311,13 @@ export function GitHubActivityBentoContent({
           </div>
         )}
       </div>
-
+          <h2 className ="text-[10px] font-bold uppercase tracking-[0.18em] text-[#00c9a7] mt-4">
+            Main Languages:{' '}
+          </h2>
       {/* Languages */}
       {repositoryStats && (
-        <div className="mt-3 flex flex-wrap gap-1.5 border-t border-white/[0.07] pt-3">
+        <div className="mt-3 flex flex-wrap gap-1.5  border-white/[0.07] pt-3">
+        
           {repositoryStats.languages.map((language) => (
             <span
               key={language}
