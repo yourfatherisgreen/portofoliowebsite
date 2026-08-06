@@ -53,6 +53,7 @@ function Reveal({
   );
 }
 
+
 /* ─── Timeline Item ─── */
 function TimelineItem({
   title,
@@ -188,13 +189,13 @@ export default function AboutMe() {
               {/* Profile Photo */}
               <div className="relative group z-10 w-44 sm:w-52 md:w-56 lg:w-60 mx-auto md:mx-0">
                 <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#6C63FF]/30 to-[#6C63FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-                <div className="relative w-full aspect-square rounded-full overflow-hidden border-2 border-white/10 bg-white/5">
+                <div className="relative w-full aspect-square rounded-full overflow-hidden border-2 border-white/10 bg-white/5 ">
                   <Image
-                    src="/fotoabout.jpg"
+                    src="/fotoabout.webp"
                     alt="Muhammad Azmi Rahman Nasution"
                     width={600}
                     height={800}
-                    className="object-cover w-full h-full"
+                    className="object-cover object-[65%_center] w-full h-full"
                     priority
                     loading = "eager"
                   />

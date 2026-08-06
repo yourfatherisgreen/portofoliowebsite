@@ -307,11 +307,11 @@ export function ContactProfileCard() {
           <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-[#6C63FF]/40 to-[#00C9A7]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
           <div className="relative w-36 h-36 rounded-full overflow-hidden border-2 border-white/10 bg-white/5">
             <Image
-              src="/fotoabout.jpg"
+              src="/fotoabout.webp"
               alt="Muhammad Azmi Rahman Nasution"
               width={144}
               height={144}
-              className="object-cover w-full h-full"
+              className="object-cover object-center w-full h-full"
             />
           </div>
           {/* Online indicator */}
